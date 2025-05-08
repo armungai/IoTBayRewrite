@@ -29,6 +29,11 @@
         <a href="AccountPages/paymentHistory.jsp" class="account-settings-card">
             <h3><span class="icon">💵</span> View Payment History</h3>
         </a>
+
+        <a href="AccountPages/userLog.jsp" class = "account-settings-card">
+            <h3> View Website Access History</h3>
+        </a>
+
     </div>
 </div>
 

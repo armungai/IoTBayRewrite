@@ -8,6 +8,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class UserDBManager extends DBManager<User> {
     // dont need a get user count
@@ -86,6 +90,63 @@ public class UserDBManager extends DBManager<User> {
         } else {
             return null;
         }
+    }
+
+    public void updateAccessLog(int id, String loginTime, String logoutTime) throws SQLException {
+        PreparedStatement statement = connection.prepareStatement(
+                "INSERT INTO websiteAccessLog (userID,loginTime, logoutTime) VALUES (?, ?, ?)"
+        );
+
+        statement.setInt(1, id);
+        statement.setString(2, loginTime);
+        statement.setString(3, logoutTime);
+        statement.executeUpdate();
+
+    }
+
+    public void addnNewLogin(int id, String loginTime) throws SQLException {
+        PreparedStatement statement = connection.prepareStatement(
+                "INSERT INTO websiteAccessLog (userID,loginTime) VALUES (?, ?)"
+        );
+
+        statement.setInt(1, id);
+        statement.setString(2, loginTime);
+        statement.executeUpdate();
+
+    }
+
+    public void addLogout(String logoutTime) throws SQLException {
+        PreparedStatement statement = connection.prepareStatement("SELECT * FROM websiteAccessLog WHERE logID = (SELECT MAX(logID) FROM websiteAccessLog)");
+
+        ResultSet rs = statement.executeQuery();
+
+        if (rs.next()) {
+            int logID = rs.getInt("logID");
+            PreparedStatement preparedStatement = connection.prepareStatement("UPDATE websiteAccessLog SET logoutTime = ? where logID = ?");
+            preparedStatement.setString(1, logoutTime);
+            preparedStatement.setInt(2, logID);
+            preparedStatement.executeUpdate();
+        }
+
+    }
+
+    public List<Map<String,String>> getUserLoginTimesByUserID(int userID) throws SQLException {
+        List<Map<String,String>> entries = new ArrayList<>();
+        String sql = "SELECT * FROM websiteAccessLog WHERE userID = ?";
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setInt(1, userID);
+        ResultSet rs = preparedStatement.executeQuery();
+
+        while (rs.next()) {
+            Map<String, String> map = new HashMap<>();
+            map.put("loginTime", rs.getString("loginTime"));
+            map.put("logoutTime", rs.getString("logoutTime"));
+
+            entries.add(map);
+
+        }
+
+        return entries;
     }
 
 
