@@ -32,7 +32,6 @@ public class LoginServlet extends HttpServlet {
         try {
             User user = db.Users().findByEmailAndPassword(email, password);
             String loginTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
-            System.out.println(loginTime);
             if (user != null) {
                 try {
                     db.Users().addnNewLogin(user.getId(),loginTime);

@@ -85,7 +85,8 @@ public class UserDBManager extends DBManager<User> {
                     rs.getString("address"),
                     rs.getString("mobile"),
                     rs.getString("city"),
-                    rs.getString("state")
+                    rs.getString("state"),
+                    rs.getBoolean("isAdmin")
             );
         } else {
             return null;
@@ -144,6 +145,24 @@ public class UserDBManager extends DBManager<User> {
 
             entries.add(map);
 
+        }
+
+        return entries;
+    }
+
+    public List<Map<String,String>> getAllWebsiteLogins() throws SQLException {
+        List<Map<String,String>> entries = new ArrayList<>();
+        String sql = "SELECT * FROM websiteAccessLog";
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        ResultSet rs = preparedStatement.executeQuery();
+
+        while (rs.next()) {
+            Map<String, String> map = new HashMap<>();
+            map.put("userID", rs.getString("userID"));
+            map.put("loginTime", rs.getString("loginTime"));
+            map.put("logoutTime", rs.getString("logoutTime"));
+
+            entries.add(map);
         }
 
         return entries;

@@ -130,6 +130,8 @@ CREATE TABLE websiteAccessLog(
     logoutTime VARCHAR(255)
 );
 
+INSERT INTO websiteAccessLog(userID, loginTime, logoutTime) VALUES (1,'2025-05-08 02:02:14','2025-05-08 02:02:20');
+
 SELECT * FROM products;
 SELECT * FROM users;
 SELECT * FROM websiteAccessLog;

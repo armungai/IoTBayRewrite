@@ -41,6 +41,19 @@ public class User implements Serializable {
         this.isAdmin = isAdmin;
     }
 
+    public User(int id,String FName, String LName, String Email, String password, String address, String phone, String city, String state, boolean isAdmin) {
+        this.id = id;
+        this.FName = FName;
+        this.LName = LName;
+        this.Email = Email;
+        this.password = password;
+        this.address = address;
+        this.phone = phone;
+        this.city = city;
+        this.state = state;
+        this.isAdmin = isAdmin;
+    }
+
     public  User(int id, String FName, String LName, String Email, String password, String address, String phone, String city, String state) {
         this.id = id;
         this.FName = FName;

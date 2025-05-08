@@ -20,8 +20,12 @@
     return;
   }
 
-  List<Payment> payments = dao.Payments().getPaymentsByUserId(user.getId());
+  String dateSelected = null;
   List<Map<String,String>> entries = dao.Users().getUserLoginTimesByUserID(user.getId());
+  if((String)session.getAttribute("selectedDate") != null){
+    dateSelected = (String) session.getAttribute("selectedDate");
+  }
+
 %>
 
 <!DOCTYPE html>
@@ -37,6 +41,12 @@
 
 <h1 style="text-align:center;">Access History</h1>
 
+<form action="${pageContext.request.contextPath}/FilterLogsServlet" method="post">
+  <label for="date">Select Date:</label>
+  <input type="date" id="date" name="selectedDate">
+  <button type="submit">Filter Logs</button>
+</form>
+
 <div style="width: 80%; margin: 0 auto;" class="view-all-data">
   <% if (entries.isEmpty()) { %>
   <p>You haven’t made any logins yet.</p>
@@ -47,13 +57,25 @@
       <th>Logout Time</th>
 
     </tr>
-    <% for (Map<String,String> entry : entries) { %>
-    <tr>
-      <td><%= entry.get("loginTime")%></td>
-      <td><%= entry.get("logoutTime") %></td>
+      <% if(dateSelected != null){
+        for (Map<String,String> entry : entries) {
+          if(entry.get("loginTime").contains(dateSelected)){%>
+            <tr>
+              <td><%= entry.get("loginTime")%></td>
+              <td><%= entry.get("logoutTime") %></td>
+            </tr>
+    <% }
 
-    </tr>
-    <% } %>
+    }}
+
+    else{
+      for (Map<String,String> entry : entries) {%>
+        <tr>
+          <td><%= entry.get("loginTime")%></td>
+          <td><%= entry.get("logoutTime") %></td>
+        </tr>
+      <%}}%>
+
   </table>
   <% } %>
 </div>
