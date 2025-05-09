@@ -41,6 +41,10 @@
 
 <h1 style="text-align:center;">Access History</h1>
 
+<% if(dateSelected != null){ %>
+<h2  style="text-align:center;">Date Selected: <%=dateSelected%></h2>
+<% } %>
+
 <form action="${pageContext.request.contextPath}/FilterLogsServlet" method="post">
   <label for="date">Select Date:</label>
   <input type="date" id="date" name="selectedDate">
