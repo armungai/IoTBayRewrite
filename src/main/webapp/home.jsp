@@ -27,7 +27,7 @@
 <body>
 <div class ="welcome-heading">
   <% if (loggedInUser != null) { %>
-  <h1>Welcome to IoT Bay, <%= loggedInUser.getFName() %>!</h1>
+  <h1>Welcome back, <%= loggedInUser.getFName() %>!</h1>
   <h2>Your one-stop shop for all things smart!</h2>
   <% } else { %>
   <h1>Welcome to IoT Bay!</h1>
@@ -35,7 +35,7 @@
   <% } %>
 </div>
 
-<h1>Featured Products</h1>
+<h1 style="margin-left: 20px">Featured Products</h1>
 <%@ include file="Components/productGrid.jsp" %>
 </body>
 </html>

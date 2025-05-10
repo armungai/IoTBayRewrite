@@ -12,7 +12,7 @@
     User user = (User) session.getAttribute("loggedInUser");
 
     if (dao == null || user == null) {
-        response.sendRedirect("login.jsp");
+        response.sendRedirect("index.jsp");
         return;
     }
 

@@ -67,6 +67,7 @@
     <p>No payment found with ID <strong><%= searchIdStr %></strong>. <span><a href="paymentHistory.jsp">Back</a> </span></p>
     <% } else { %>
     <p>You haven’t made any payments yet.</p>
+    <a class="return-ref" href = "/accountSettings.jsp">Back</a>
     <% } %>
     <% } else { %>
     <form method="get" action="paymentHistory.jsp" style="text-align:center; margin-bottom: 20px;">

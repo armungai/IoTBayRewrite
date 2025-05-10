@@ -29,7 +29,7 @@
     <h1>✅ Thank You for Your Order!</h1>
     <p>Your order has been placed successfully.</p>
     <p><strong>Order ID:</strong> <%= orderId %></p>
-    <a href="index.jsp" class="register-button" style="margin-top: 20px;">Continue Shopping</a>
+    <a href="home.jsp" class="register-button" style="margin-top: 20px;">Continue Shopping</a>
 </main>
 
 </body>
