@@ -4,6 +4,7 @@ DROP TABLE IF EXISTS PaymentMethods;
 DROP TABLE IF EXISTS Payments;
 DROP TABLE IF EXISTS Orders;
 DROP TABLE IF EXISTS OrderItems;
+DROP TABLE IF EXISTS websiteAccessLog;
 
 CREATE TABLE users (
                        userID INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -14,7 +15,8 @@ CREATE TABLE users (
                        address VARCHAR(255),
                        mobile INT,
                        city VARCHAR(255),
-                       state VARCHAR(255)
+                       state VARCHAR(255),
+                       isAdmin BOOLEAN
 );
 
 INSERT INTO users (firstName, lastName, email, password, address, mobile, city, state) VALUES
@@ -23,6 +25,8 @@ INSERT INTO users (firstName, lastName, email, password, address, mobile, city, 
                                                                                            ('Jane', 'Doe', 'jane@example.com', 'pass123', '789 Light Rd', 3456789012, 'Brisbane', 'QLD'),
                                                                                            ('John', 'Smith', 'john@example.com', 'abc456', '321 Cloud Ln', 4567890123, 'Perth', 'WA'),
                                                                                            ('Emily', 'Brown', 'emily@example.com', 'xyz789', '654 AI Blvd', 5678901234, 'Adelaide', 'SA');
+
+INSERT INTO users (email,password,isAdmin) VALUES('admin@a','a',true);
 
 CREATE TABLE IF NOT EXISTS PaymentMethods (
                                               methodId INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -127,4 +131,15 @@ INSERT INTO products(productName, productDescription, price, productImageAddress
 INSERT INTO products(productName, productDescription, price, productImageAddress) VALUES ('Sonos One', 'Smart speaker with high quality sound', '299.00', 'assets/images/sonos-one.png');
 
 
+CREATE TABLE websiteAccessLog(
+    logID INTEGER PRIMARY KEY AUTOINCREMENT,
+    userID INTEGER,
+    loginTime VARCHAR(255),
+    logoutTime VARCHAR(255)
+);
+
+INSERT INTO websiteAccessLog(userID, loginTime, logoutTime) VALUES (1,'2025-05-08 02:02:14','2025-05-08 02:02:20');
+
 SELECT * FROM products;
+SELECT * FROM users;
+SELECT * FROM websiteAccessLog;
