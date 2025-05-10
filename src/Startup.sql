@@ -63,6 +63,14 @@ INSERT INTO Payments (userId, methodId, amount, date, status) VALUES
                                                                   (4, 6, 599.00, '2025-05-05', 'Completed'),
                                                                   (5, 7, 89.99, '2025-05-06', 'Completed');
 
+INSERT INTO Payments (userId, methodId, amount, date, status) VALUES
+                                                                  (1, 1, 39.99, '2025-05-07', 'Completed'),
+                                                                  (1, 2, 19.99, '2025-05-08', 'Pending'),
+                                                                  (1, 3, 159.50, '2025-05-09', 'Completed'),
+                                                                  (1, 4, 250.00, '2025-05-10', 'Failed'),
+                                                                  (1, 1, 75.00, '2025-05-11', 'Completed'),
+                                                                  (1, 2, 10.00, '2025-05-12', 'Completed');
+
 CREATE TABLE Orders (
                         orderId INTEGER PRIMARY KEY AUTOINCREMENT,
                         userId INTEGER NOT NULL,

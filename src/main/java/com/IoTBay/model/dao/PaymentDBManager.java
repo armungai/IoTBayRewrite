@@ -92,4 +92,45 @@ public class PaymentDBManager extends DBManager<Payment> {
 
         return payments;
     }
+
+    public Payment getPaymentById(int paymentId) throws SQLException {
+        String sql = "SELECT * FROM Payments WHERE paymentId = ?";
+        PreparedStatement ps = connection.prepareStatement(sql);
+        ps.setInt(1, paymentId);
+        ResultSet rs = ps.executeQuery();
+
+        if (rs.next()) {
+            return new Payment(
+                    rs.getInt("paymentId"),
+                    rs.getInt("userId"),
+                    rs.getInt("methodId"),
+                    rs.getDouble("amount"),
+                    rs.getString("date"),
+                    rs.getString("status")
+            );
+        } else {
+            return null;
+        }
+    }
+
+    public Payment getPaymentByIdAndUserId(int paymentId, int userId) throws SQLException {
+        String query = "SELECT * FROM Payments WHERE paymentId = ? AND userId = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setInt(1, paymentId);
+            stmt.setInt(2, userId);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return new Payment(
+                        rs.getInt("paymentId"),
+                        rs.getInt("userId"),
+                        rs.getInt("methodId"),
+                        rs.getDouble("amount"),
+                        rs.getString("date"),
+                        rs.getString("status")
+                );
+            }
+        }
+        return null;
+    }
+
 }
