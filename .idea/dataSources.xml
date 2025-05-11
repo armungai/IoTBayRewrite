@@ -11,7 +11,7 @@
       </jdbc-additional-properties>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
-    <data-source source="LOCAL" name="IoTBayNew.db" uuid="81a97cc0-1474-47b6-b73f-536f74df8c27">
+    <data-source source="LOCAL" name="IoTBayNew.db" uuid="fbff506b-c785-4589-8fc7-20629189b9d5">
       <driver-ref>sqlite.xerial</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>

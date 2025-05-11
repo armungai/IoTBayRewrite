@@ -6,7 +6,6 @@
 <% if ("success".equals(logoutStatus)) { %>
 <script>
     alert("You have been logged out successfully.");
-    // Optional: remove the query from the URL so it doesn't trigger on refresh
     window.history.replaceState(null, null, window.location.pathname);
 </script>
 <% } %>

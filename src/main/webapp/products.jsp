@@ -6,28 +6,23 @@
 
 <%
     DAO dao = (DAO) session.getAttribute("db");
-    if (dao == null) {
-        response.sendRedirect("login.jsp");
-        return;
-    }
+    User user = (User) session.getAttribute("loggedInUser");
+    List<Product> all = dao.Products().getAllProducts();
 
-    List<Product> products = dao.Products().getAllProducts();
+    request.setAttribute("products", all);
+    request.setAttribute("isAdmin", user!=null && user.getAdmin());
 %>
-
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>IoTBay Products</title>
+    <title>All Products – IoT Bay</title>
     <link rel="stylesheet" href="assets/styles.css">
-
 </head>
 <body>
-<%@ include file="Components/navbar.jsp" %>
+<jsp:include page="Components/navbar.jsp" />
 
 <h1 style="text-align:center;">All Products</h1>
-
-<%@ include file="Components/productGrid.jsp" %>
-
+<jsp:include page="Components/productGrid.jsp" />
 </body>
 </html>
