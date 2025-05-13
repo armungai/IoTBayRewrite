@@ -72,13 +72,13 @@
     <% } else { %>
     <form method="get" action="paymentHistory.jsp" style="text-align:center; margin-bottom: 20px;">
         <label for="search">Search by Payment ID:</label>
-        <input type="text" id="search" name="paymentId" placeholder="Enter payment ID" value="<%= (searchIdStr != null) ? searchIdStr : "" %>">
+        <input type="text" id="search" class="search-payment" name="paymentId" placeholder="Enter payment ID" value="<%= (searchIdStr != null) ? searchIdStr : "" %>">
         <input type="hidden" name="sort" value="<%= (sort != null) ? sort : "" %>">
-        <button type="submit">Search</button><span><a style="margin-left: 15px" href="paymentHistory.jsp">Reset</a> </span>
+        <button type="submit">Search</button><span><a class="search-payment" href="paymentHistory.jsp">Reset</a> </span>
     </form>
     <div style="text-align:center; margin-bottom: 20px;">
-        <a href="paymentHistory.jsp?sort=asc">Sort by Date ↑</a> |
-        <a href="paymentHistory.jsp?sort=desc">Sort by Date ↓</a>
+        <a href="paymentHistory.jsp?sort=asc" class="sort-by">Sort by Date ↑</a>
+        <a href="paymentHistory.jsp?sort=desc" class="sort-by">Sort by Date ↓</a>
     </div>
     <table class="order-history-table">
         <tr>

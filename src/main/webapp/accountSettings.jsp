@@ -35,7 +35,7 @@
         </a>
 
         <a href="AccountPages/userLog.jsp" class = "account-settings-card">
-            <h3> View Website Access History</h3>
+            <h3> <span class="icon">🔍</span> Website Access History</h3>
         </a>
 
         <%
@@ -46,10 +46,6 @@
         </a>
 
         <%}%>
-
-
-
-
 
     </div>
 </div>

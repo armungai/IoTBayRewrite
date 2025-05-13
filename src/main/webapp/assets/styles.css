@@ -240,11 +240,10 @@ main {
 
 /* STYLES FOR ACCOUNT SETTINGS PAGE */
 .account-settings-container {
-    margin-top: 200px;
+    margin-top: 50px;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 40vh;
 }
 
 .account-settings {
@@ -253,7 +252,6 @@ main {
     border-radius: 10px;
     color: white;
     width: 500px;
-    height: 800px
 }
 
 .account-settings-card {
@@ -497,12 +495,12 @@ main {
 
 .order-history-table {
     width: 100%;
+    margin: 40px;
     border-collapse: collapse;
     background-color: #f4f4f4;
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    margin-top: 20px;
 }
 
 .order-history-table th,
@@ -681,8 +679,25 @@ a.link-button:hover {
     border-radius: 5px;
     text-decoration: none;
 }
-
 .return-ref:hover {
-
     background-color: #888888;
+}
+
+
+.search-payment {
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.sort-by {
+    text-decoration: none;
+    color: white;
+    background-color: #888888;
+    padding: 8px;
+    border-radius: 5px;
+}
+
+.sort-by:hover {
+
+    background-color: #666666 ;
 }

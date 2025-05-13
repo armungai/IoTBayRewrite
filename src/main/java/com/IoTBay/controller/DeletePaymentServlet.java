@@ -42,7 +42,6 @@ public class DeletePaymentServlet extends HttpServlet {
         try {
             int paymentId = Integer.parseInt(request.getParameter("paymentId"));
 
-            System.out.println(user.getId());
             Payment payment = dao.Payments().getPaymentById(paymentId);
             if (payment == null) {
                 response.sendError(HttpServletResponse.SC_NOT_FOUND, "Payment not found.");
@@ -55,6 +54,7 @@ public class DeletePaymentServlet extends HttpServlet {
             }
 
             dao.Payments().delete(payment);
+            System.out.println("Deleting payment #" + payment.getPaymentId() + "; For user: " + user.getId());
             response.sendRedirect("AccountPages/paymentHistory.jsp");
 
         } catch (NumberFormatException e) {
