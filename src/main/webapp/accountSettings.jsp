@@ -12,7 +12,10 @@
 <%@ include file="Components/navbar.jsp" %>
 <%
     User loggedinuser = (User)session.getAttribute("loggedInUser");
+    if (loggedinuser != null && loggedinuser.getAdmin())
 %>
+
+
 
 
 <div class="account-settings-container">

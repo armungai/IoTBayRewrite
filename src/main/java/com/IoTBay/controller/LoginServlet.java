@@ -40,7 +40,11 @@ public class LoginServlet extends HttpServlet {
                 }
                 session.setAttribute("loggedInUser", user);
                 session.setAttribute("loginTime", loginTime);
-                resp.sendRedirect("home.jsp");
+                if (user.getAdmin()) {
+                    resp.sendRedirect("adminHome.jsp");
+                } else {
+                    resp.sendRedirect("home.jsp");
+                }
 
             } else {
                 session.setAttribute("loginError", "Invalid email or password");
@@ -48,7 +52,7 @@ public class LoginServlet extends HttpServlet {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            resp.sendRedirect("error.jsp");
+            resp.sendRedirect("unauthorized.jsp");
         }
     }
 }

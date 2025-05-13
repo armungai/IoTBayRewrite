@@ -1,7 +1,29 @@
 <%@ page import="com.IoTBay.model.Product" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Collections, java.util.Comparator" %>
+<%@ page session="true" %>
 
+<%--<%--%>
+<%--  List<Product> products = (List<Product>) request.getAttribute("products");--%>
+<%--  Boolean       isAdmin  = (Boolean)        request.getAttribute("isAdmin");--%>
+
+<%--  if (products == null || products.isEmpty()) {--%>
+<%--    DAO dao = (DAO) session.getAttribute("db");--%>
+<%--    products = dao.Products().getAllProducts();--%>
+<%--    isAdmin  = false;--%>
+<%--  }--%>
+<%--%>--%>
+<%
+  // pulled in by the parent JSP
+  List<Product> products = (List<Product>) request.getAttribute("products");
+  Boolean isAdmin = (Boolean) request.getAttribute("isAdmin");
+
+  if (products == null || products.isEmpty()) { %>
+<p>No products available.</p>
+<%
+    return;
+  }
+%>
 <%-- Sorting the existing 'products' list passed in by the parent JSP --%>
 <%
   String sortParam = request.getParameter("sort");
@@ -38,17 +60,50 @@
   </form>
 </div>
 
+<!-- Product grid -->
 <div class="product-grid">
-  <% for (Product product : products) { %>
+  <% for (Product p : products) { %>
   <div class="product-card">
-    <a href="product.jsp?productId=<%= product.getProductID() %>" style="text-decoration: none; color: inherit;">
-      <img src="<%= product.getProductImageAddress() %>" alt="Product image">
+    <a href="product.jsp?productId=<%= p.getProductID() %>" style="text-decoration:none; color:inherit;">
+      <img src="<%= p.getProductImageAddress() %>" alt="<%= p.getProductName() %>" />
       <div class="product-card-content">
-        <h3><%= product.getProductName() %></h3>
-        <p class="product-price">$<%= product.getPrice() %></p>
-        <p> <%=product.getProductDescription()%></p>
+        <h3><%= p.getProductName() %></h3>
+        <p class="product-price">$<%= String.format("%.2f", p.getPrice()) %></p>
+        <p><%= p.getProductDescription() %></p>
       </div>
     </a>
+
+    <% if (Boolean.TRUE.equals(isAdmin)) { %>
+    <div class="admin-buttons">
+      <a href="addDevice.jsp" class="btn-add">Add</a>
+      <a href="EditDeviceLoaderServlet?id=<%= p.getProductID() %>" class="btn btn-warning">Edit</a>
+      <a href="DeleteDeviceServlet?id=<%= p.getProductID() %>" class="btn btn-danger" onclick="return confirm('Delete this device?');">Delete</a>
+    </div>
+    <% } %>
   </div>
   <% } %>
 </div>
+
+<%--<div class="product-grid">--%>
+<%--  <% for (Product p : products) { %>--%>
+<%--  <div class="product-card">--%>
+<%--    <a href="product.jsp?productId=<%= p.getProductID() %>" style="text-decoration:none;color:inherit;">--%>
+<%--      <img src="<%= p.getProductImageAddress() %>" alt="Product image"><br>--%>
+<%--      <h3><%= p.getProductName() %></h3>--%>
+<%--      <p>$<%= p.getPrice() %></p>--%>
+<%--      <p><%= p.getProductDescription() %></p>--%>
+<%--    </a>--%>
+
+<%--    <% if (isAdmin != null && isAdmin) { %>--%>
+<%--    <div class="admin-buttons">--%>
+<%--      <a href="addDevice.jsp" class="btn btn-add">Add</a>--%>
+<%--      <a href="EditDeviceLoaderServlet?id=<%= p.getProductID() %>"--%>
+<%--         class="btn btn-warning">Edit</a>--%>
+<%--      <a href="DeleteDeviceServlet?id=<%= p.getProductID() %>"--%>
+<%--         class="btn btn-danger"--%>
+<%--         onclick="return confirm('Delete this device?');">Delete</a>--%>
+<%--    </div>--%>
+<%--    <% } %>--%>
+<%--  </div>--%>
+<%--  <% } %>--%>
+<%--</div>--%>
