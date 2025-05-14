@@ -34,10 +34,10 @@
   <link rel="stylesheet" href="assets/styles.css">
 </head>
 <body>
-
+<%@ include file="Components/navbar.jsp" %>
 <div class ="welcome-heading">
-  <% if (loggedInUser != null) { %>
-  <h1>Welcome, <%=loggedInUser.getFName()%></h1>
+  <% if (user != null) { %>
+  <h1>Welcome, <%=user.getFName()%></h1>
   <h2>We're glad to see you back</h2>
 
   <% } else { %>
