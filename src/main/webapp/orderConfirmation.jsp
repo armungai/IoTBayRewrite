@@ -31,6 +31,6 @@
     <p><strong>Order ID:</strong> <%= orderId %></p>
     <a href="home.jsp" class="register-button" style="margin-top: 20px;">Continue Shopping</a>
 </main>
-
+<%@ include file="Components/footer.jsp" %>
 </body>
 </html>

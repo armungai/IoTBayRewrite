@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IoT Store - Register</title>
+    <title>IoT Store - Account</title>
     <link rel="stylesheet" href="assets/styles.css">
 </head>
 <body>
@@ -42,13 +42,23 @@
             if(loggedinuser.getAdmin()){
         %>
         <a href ="AccountPages/AdminViewAllAccess.jsp" class = "account-settings-card">
-            <h3>View All Website Access History</h3>
+            <h3><span class="icon">🔑 </span>View All Website Access History</h3>
+        </a>
+
+        <%}%>
+
+
+        <%
+            if(loggedinuser.getAdmin()){
+        %>
+        <a href ="AccountPages/paymentHistory.jsp" class = "account-settings-card">
+            <h3><span class="icon">🔑</span> View All Payment History</h3>
         </a>
 
         <%}%>
 
     </div>
 </div>
-
+<%@ include file="Components/footer.jsp" %>
 </body>
 
