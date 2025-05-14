@@ -78,6 +78,9 @@
     <button type="submit" class="register-button form-group-a" style="width: 190px">
         <a href="cart.jsp">← Back to Cart</a>
     </button>
+    <%--
+    Start of the payment creation process
+   --%>
 
     <form action="PlaceOrderServlet" method="post" class="place-order-section">
         <input type="hidden" name="methodId" value="<%= method.getMethodId() %>">

@@ -13,7 +13,7 @@
     String tempShippingAddress = (String) session.getAttribute("tempShippingAddress");
 
     if (dao == null || user == null) {
-        response.sendRedirect("login.jsp");
+        response.sendRedirect("index.jsp");
         return;
     }
 
@@ -158,6 +158,8 @@
         }
     %>
 </div>
+
+<%@ include file="Components/footer.jsp" %>
 
 </body>
 </html>

@@ -37,6 +37,7 @@ public class ConfirmOrderServlet extends HttpServlet {
                 return;
             }
 
+            // this is where we set the selected payment attribute
             session.setAttribute("selectedPaymentMethod", method);
 
             String shippingAddress = request.getParameter("address");

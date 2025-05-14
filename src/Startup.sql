@@ -4,6 +4,7 @@ DROP TABLE IF EXISTS PaymentMethods;
 DROP TABLE IF EXISTS Payments;
 DROP TABLE IF EXISTS Orders;
 DROP TABLE IF EXISTS OrderItems;
+DROP TABLE IF EXISTS websiteAccessLog;
 
 CREATE TABLE users (
                        userID INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -14,7 +15,8 @@ CREATE TABLE users (
                        address VARCHAR(255),
                        mobile INT,
                        city VARCHAR(255),
-                       state VARCHAR(255)
+                       state VARCHAR(255),
+                       isAdmin BOOLEAN
 );
 
 INSERT INTO users (firstName, lastName, email, password, address, mobile, city, state) VALUES
@@ -23,6 +25,10 @@ INSERT INTO users (firstName, lastName, email, password, address, mobile, city, 
                                                                                            ('Jane', 'Doe', 'jane@example.com', 'pass123', '789 Light Rd', 3456789012, 'Brisbane', 'QLD'),
                                                                                            ('John', 'Smith', 'john@example.com', 'abc456', '321 Cloud Ln', 4567890123, 'Perth', 'WA'),
                                                                                            ('Emily', 'Brown', 'emily@example.com', 'xyz789', '654 AI Blvd', 5678901234, 'Adelaide', 'SA');
+
+
+INSERT INTO users (firstName, email,password,isAdmin) VALUES('ANDREW-ADMIN','admin@a','a',true);
+
 
 CREATE TABLE IF NOT EXISTS PaymentMethods (
                                               methodId INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -45,7 +51,7 @@ INSERT INTO PaymentMethods (userId, type, cardNumber, nameOnCard, expiry, cvv) V
                                                                                    (5, 'Debit Card', '6011000990139424', 'Emily Brown', '2024-09', '654');
 
 CREATE TABLE Payments (
-                          paymentId INTEGER PRIMARY KEY AUTOINCREMENT,
+                          paymentId INTEGER PRIMARY KEY ,
                           userId INTEGER NOT NULL,
                           methodId INTEGER NOT NULL,
                           amount REAL,
@@ -55,13 +61,62 @@ CREATE TABLE Payments (
                           FOREIGN KEY(methodId) REFERENCES PaymentMethods(methodId)
 );
 
-INSERT INTO Payments (userId, methodId, amount, date, status) VALUES
-                                                                  (1, 1, 129.99, '2025-05-01', 'Completed'),
-                                                                  (1, 2, 49.99, '2025-05-02', 'Pending'),
-                                                                  (2, 3, 299.00, '2025-05-03', 'Completed'),
-                                                                  (3, 5, 79.99, '2025-05-04', 'Failed'),
-                                                                  (4, 6, 599.00, '2025-05-05', 'Completed'),
-                                                                  (5, 7, 89.99, '2025-05-06', 'Completed');
+
+-- manual inserts for Payments
+INSERT INTO Payments (paymentId, userId, methodId, amount, date, status) VALUES
+                                                                             (18376291, 1, 1, 129.99, '2025-05-01', 'Completed'),
+                                                                             (28163927, 1, 2, 49.99, '2025-05-02', 'Pending'),
+                                                                             (30945871, 4, 6, 599.00, '2025-05-05', 'Completed'),
+                                                                             (27418936, 5, 7, 89.99, '2025-05-06', 'Completed'),
+                                                                             (28451702, 1, 1, 75.00, '2025-05-11', 'Completed'),
+                                                                             (21298374, 1, 2, 10.00, '2025-05-12', 'Completed'),
+                                                                             (14782930, 1, 1, 49.99, '2025-04-01', 'Completed'),
+                                                                             (15849274, 1, 2, 89.50, '2025-04-02', 'Pending'),
+                                                                             (16749385, 1, 1, 120.00, '2025-04-03', 'Completed'),
+                                                                             (17839465, 1, 2, 75.30, '2025-04-04', 'Failed'),
+                                                                             (18920384, 1, 1, 60.10, '2025-04-05', 'Completed'),
+                                                                             (19384756, 1, 2, 33.99, '2025-04-06', 'Completed'),
+                                                                             (20495834, 1, 1, 150.75, '2025-04-07', 'Pending'),
+                                                                             (21938475, 1, 2, 20.00, '2025-04-08', 'Completed'),
+                                                                             (22638495, 1, 1, 45.25, '2025-04-09', 'Failed'),
+                                                                             (23495874, 1, 2, 99.95, '2025-04-10', 'Completed'),
+                                                                             (24593847, 1, 1, 110.00, '2025-04-11', 'Completed'),
+                                                                             (25738495, 1, 2, 80.80, '2025-04-12', 'Pending'),
+                                                                             (26495823, 1, 1, 69.69, '2025-04-13', 'Completed'),
+                                                                             (27839571, 1, 2, 34.34, '2025-04-14', 'Completed'),
+                                                                             (28394759, 1, 1, 200.00, '2025-04-15', 'Failed'),
+                                                                             (29385741, 1, 2, 58.58, '2025-04-16', 'Completed'),
+                                                                             (30294857, 1, 1, 77.77, '2025-04-17', 'Completed'),
+                                                                             (31837492, 1, 2, 90.00, '2025-04-18', 'Pending'),
+                                                                             (32948573, 1, 1, 42.42, '2025-04-19', 'Completed'),
+                                                                             (33749285, 1, 2, 35.00, '2025-04-20', 'Completed');
+
+INSERT INTO Payments (paymentId, userId, methodId, amount, date, status) VALUES
+                                                                             (36120032, 3, 1, 164.72, '2025-09-19', 'Failed'),
+                                                                             (35822900, 5, 1, 204.91, '2025-12-29', 'Failed'),
+                                                                             (21937822, 4, 2, 21.45, '2025-10-01', 'Pending'),
+                                                                             (18137768, 4, 2, 58.11, '2025-03-19', 'Failed'),
+                                                                             (28247279, 2, 1, 199.45, '2025-11-30', 'Completed'),
+                                                                             (28739415, 2, 2, 259.17, '2025-08-24', 'Failed'),
+                                                                             (17169176, 4, 2, 31.14, '2025-05-27', 'Completed'),
+                                                                             (36218241, 4, 1, 126.03, '2025-01-07', 'Failed'),
+                                                                             (12260177, 4, 1, 108.78, '2025-02-13', 'Pending'),
+                                                                             (28765461, 3, 2, 117.58, '2025-10-06', 'Pending'),
+                                                                             (28024695, 5, 1, 250.21, '2025-01-09', 'Completed'),
+                                                                             (27085068, 5, 1, 64.47, '2025-11-30', 'Pending'),
+                                                                             (20976777, 3, 1, 171.26, '2025-04-13', 'Failed'),
+                                                                             (33237659, 2, 1, 221.49, '2025-12-28', 'Pending'),
+                                                                             (20612642, 3, 1, 189.28, '2025-05-06', 'Pending'),
+                                                                             (14276441, 5, 1, 210.49, '2025-06-03', 'Pending'),
+                                                                             (35485923, 1, 1, 30.92, '2025-04-07', 'Completed'),
+                                                                             (26413671, 5, 2, 85.88, '2025-04-16', 'Pending'),
+                                                                             (39314778, 2, 2, 170.17, '2025-03-31', 'Completed'),
+                                                                             (30600118, 4, 2, 43.52, '2025-01-11', 'Failed'),
+                                                                             (34396475, 4, 1, 55.63, '2025-05-14', 'Completed'),
+                                                                             (26986678, 4, 1, 42.55, '2025-10-22', 'Failed'),
+                                                                             (11005487, 4, 2, 264.13, '2025-06-03', 'Failed'),
+                                                                             (34666773, 4, 2, 22.02, '2025-11-05', 'Pending'),
+                                                                             (18289740, 2, 1, 96.2, '2025-12-20', 'Failed');
 
 CREATE TABLE Orders (
                         orderId INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -119,4 +174,16 @@ INSERT INTO products(productName, productDescription, price, productImageAddress
 INSERT INTO products(productName, productDescription, price, productImageAddress) VALUES ('Sonos One', 'Smart speaker with high quality sound', '299.00', 'assets/images/sonos-one.png');
 
 
-SELECT * FROM products;
+CREATE TABLE websiteAccessLog(
+    logID INTEGER PRIMARY KEY AUTOINCREMENT,
+    userID INTEGER,
+    loginTime VARCHAR(255),
+    logoutTime VARCHAR(255),
+    FOREIGN KEY(userID) REFERENCES users(userID)
+);
+
+INSERT INTO websiteAccessLog(userID, loginTime, logoutTime) VALUES (1,'2025-05-08 02:02:14','2025-05-08 02:02:20');
+
+INSERT INTO users(firstName, lastName, email, password, address, mobile, city, state, isAdmin)  VALUES  ('Tony', 'Tran', 'admin@a', 'a', 'Charles St', '0123456789', 'Sydney', 'NSW', 1)
+
+SELECT userID, firstName, lastName, email, isAdmin FROM users WHERE email='admin@a' AND password='a';

@@ -55,7 +55,7 @@
 }
 
 .nav-links a.active {
-    background-color: #045F5F;
+    background-color: #ff9800;
     color: white;
 }
 /* STYLING FOR NAVIGATION BAR */
@@ -63,30 +63,22 @@
 
 
 
-/* STYLING FOR BODY ELEMENTS */
 html, body {
     height: 100%;
     margin: 0;
     padding: 0;
-    display: flex;
-    flex-direction: column;
-    font-family: sans-serif;
-    background: linear-gradient(to bottom right, #e1e1e1, #b6b6b6);
 }
 
 body {
-    flex: 1;
-    background-size: cover;        /* Makes it cover the whole element */
-    background-position: center;   /* Centers the image */
-    background-repeat: no-repeat;  /* Prevents tiling */
-    height: 100vh;                 /* Full viewport height if needed */
-    margin: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Not height: 100vh */
+    background: linear-gradient(to bottom right, #e1e1e1, #b6b6b6);
+    font-family: sans-serif;
 }
 
 main {
-    flex: 1;
-}
-main {
+    flex: 1; /* This makes main stretch and push the footer down */
     padding: 20px;
 }
 /* STYLING FOR BODY ELEMENTS */
@@ -240,11 +232,10 @@ main {
 
 /* STYLES FOR ACCOUNT SETTINGS PAGE */
 .account-settings-container {
-    margin-top: 200px;
+    margin-top: 50px;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 40vh;
 }
 
 .account-settings {
@@ -253,7 +244,6 @@ main {
     border-radius: 10px;
     color: white;
     width: 500px;
-    height: 550px
 }
 
 .account-settings-card {
@@ -496,13 +486,13 @@ main {
 }
 
 .order-history-table {
-    width: 100%;
+    width: 90%;
+    margin: 40px;
     border-collapse: collapse;
     background-color: #f4f4f4;
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    margin-top: 20px;
 }
 
 .order-history-table th,
@@ -674,25 +664,482 @@ a.link-button:hover {
     color: #ff9800;
 }
 
-.checkout-grid {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 40px;
-    margin-top: 20px;
-}
 
-.left-column, .right-column {
-    flex: 1;
-    min-width: 300px;
-}
 
-.left-column h2,
-.right-column h2 {
+/* EDIT DEVICE FORM CARD */
+.edit-form-container {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 30px;
+    background: linear-gradient(to bottom right, #3a3a3a, #1c1c1c);
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    color: white;
+}
+.edit-form-container h1 {
     margin-top: 0;
-    margin-bottom: 10px;
+    color: #ff9800;
+    text-align: center;
+}
+.edit-form-container label {
+    display: block;
+    margin: 12px 0 4px;
+    font-weight: bold;
+}
+.edit-form-container input[type="text"],
+.edit-form-container input[type="number"],
+.edit-form-container textarea {
+    width: 100%;
+    padding: 8px;
+    border: none;
+    border-radius: 6px;
+    margin-bottom: 12px;
+    font-size: 1rem;
+}
+.edit-form-container button.btn {
+    display: block;
+    width: 100%;
+    background-color: #ff9800;
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-top: 16px;
+}
+.edit-form-container button.btn:hover {
+    background-color: #e68900;
+}
+.edit-form-container .link-button {
+    display: inline-block;
+    margin-top: 12px;
+    color: coral;
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+.edit-form-container .link-button:hover {
+    text-decoration: underline;
 }
 
-.small-box {
-    width: 200px;
+.manage-container {
+    background: #2c2c2c;
+    padding: 24px;
+    border-radius: 12px;
+    max-width: 800px;
+    margin: 40px auto;
+    color: white;
 }
+
+.manage-actions {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.manage-table-wrapper {
+    max-height: 60vh;
+    overflow: auto;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.manage-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.manage-table th,
+.manage-table td {
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+.manage-table thead {
+    background: #444;
+    color: white;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+.manage-table thead th:nth-child(-n+3) {
+    background-color: #000;
+    color: #fff;
+}
+
+.manage-table tbody td:nth-child(-n+3) {
+    color: #000;
+}
+
+/* --------------------------------------------------
+   Admin buttons inside each card
+   -------------------------------------------------- */
+.admin-buttons {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    margin-top: 12px;
+}
+
+a.btn,
+a.btn-warning,
+a.btn-danger,
+a.btn-add {
+    display: inline-block;
+    background-color: #ff9800;
+    color: white;
+    text-decoration: none;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 18px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+a.btn:hover,
+a.btn-warning:hover,
+a.btn-danger:hover,
+a.btn-add:hover {
+    transform: scale(1.03);
+}
+
+/* --------------------------------------------------
+   Dark‐card form wrapper
+   -------------------------------------------------- */
+.form-container {
+    max-width: 500px;
+    margin: 40px auto;
+    padding: 24px;
+    background: linear-gradient(to bottom right, #3a3a3a, #1c1c1c);
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+    color: white;
+}
+.form-container h1 {
+    margin-bottom: 16px;
+    text-align: center;
+}
+.form-container label {
+    margin-top: 12px;
+    font-weight: 600;
+}
+.form-container input[type="text"],
+.form-container input[type="number"],
+.form-container textarea {
+    width: 100%;
+    padding: 8px;
+    margin-top: 4px;
+    border: none;
+    border-radius: 6px;
+}
+.form-container textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+.form-container .btn {
+    display: inline-block;
+    margin-top: 16px;
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   Unauthorized page centered card
+   ────────────────────────────────────────────────────────────────────────── */
+.unauthorized-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 120px);
+    padding: 20px;
+    background: linear-gradient(to bottom right, #e1e1e1, #b6b6b6);
+}
+
+.unauthorized-card {
+    background: linear-gradient(to bottom right, #3a3a3a, #1c1c1c);
+    color: #ffffff;
+    padding: 40px 30px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    max-width: 400px;
+    width: 100%;
+}
+
+.unauthorized-card h1 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-size: 2rem;
+    color: #ff4d4f;
+}
+
+.unauthorized-card p {
+    margin-bottom: 1.5rem;
+    font-size: 1.1rem;
+    line-height: 1.4;
+}
+
+.unauthorized-card .btn {
+    display: inline-block;
+    background-color: #ff9800;
+    color: #fff;
+    text-decoration: none;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    transition: transform 0.2s ease;
+}
+
+.unauthorized-card .btn:hover {
+    transform: scale(1.03);
+}
+
+/**/
+
+/* === Admin “Add New Product” button === */
+.admin-add-container {
+    text-align: right;
+    margin: 16px 0;
+}
+
+.add-new-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #ff9800;
+    color: #fff;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background-color 0.2s ease;
+}
+.add-new-btn:hover {
+    background-color: #e68a00;
+}
+
+/*!* === Product grid layout === *!*/
+/*.product-grid {*/
+/*    display: flex;*/
+/*    flex-wrap: wrap;*/
+/*    gap: 20px;*/
+/*    justify-content: center;*/
+/*}*/
+
+/*!* === Product card === *!*/
+/*.product-card {*/
+/*    width: 260px;*/
+/*    background: #fff;*/
+/*    border-radius: 8px;*/
+/*    box-shadow: 0 4px 12px rgba(0,0,0,0.1);*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*    overflow: hidden;*/
+/*}*/
+
+/*.product-card img {*/
+/*    width: 100%;*/
+/*    height: 180px;*/
+/*    object-fit: cover;*/
+/*}*/
+
+/*.product-card-content {*/
+/*    padding: 16px;*/
+/*    flex: 1;*/
+/*}*/
+
+/*.product-price {*/
+/*    font-size: 18px;*/
+/*    font-weight: bold;*/
+/*    margin: 8px 0;*/
+/*}*/
+.product-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.product-card {
+    width: 260px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.product-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+
+.product-card-content {
+    padding: 16px;
+    flex: 1;
+}
+
+.product-price {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 8px 0;
+}
+
+/* === Action buttons row === */
+/*.product-actions {*/
+/*    display: flex;*/
+/*    justify-content: center;*/
+/*    gap: 10px;*/
+/*    padding: 12px;*/
+/*    background: #f5f5f5;*/
+/*}*/
+.product-card .actions {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;           /* space between buttons */
+    margin-top: 1rem;
+}
+
+.product-card .actions .btn {
+    background-color: #ff9800;  /* same orange as Add to Cart */
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+}
+
+.btn {
+    padding: 8px 14px;
+    border-radius: 6px;
+    text-decoration: none;
+    color: #fff;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+}
+
+/* Edit button (orange) */
+.btn-edit {
+    background-color: #ffa500;
+}
+.btn-edit:hover {
+    background-color: #e59400;
+}
+
+/* Delete button (red) */
+.btn-delete {
+    background-color: #dc3545;
+}
+.btn-delete:hover {
+    background-color: #c82333;
+}
+
+/* Add-to-cart button (green) */
+.btn-add-to-cart {
+    background-color: #28a745;
+}
+.btn-add-to-cart:hover {
+    background-color: #218838;
+}
+=======
+.return-ref {
+    padding: 5px;
+    background-color: lightgrey;
+    color: #1a1a1a;
+    border-radius: 5px;
+    text-decoration: none;
+}
+.return-ref:hover {
+    background-color: #888888;
+}
+
+
+.search-payment {
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.sort-by {
+    text-decoration: none;
+    color: white;
+    background-color: #888888;
+    padding: 8px;
+    border-radius: 5px;
+}
+
+.sort-by:hover {
+
+    background-color: #666666 ;
+}
+
+.sticky-footer {
+    width: 100%;
+    background: linear-gradient(to right, #2c2c2c, #1a1a1a);
+    color: #ddd;
+    padding: 20px;
+    font-size: 14px;
+    position: relative;
+    bottom: 0;
+    left: 0;
+    text-align: center;
+    margin-top: auto;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.sticky-footer a {
+    color: #ff9800;
+    text-decoration: none;
+    margin: 0 10px;
+}
+
+.sticky-footer a:hover {
+    text-decoration: underline;
+}
+
+.sticky-footer p {
+    margin: 0;
+}
+
+.product-scrolling-banner {
+    width: 100%;
+    overflow: hidden;
+    background: linear-gradient(to right, #3a3a3a, #1c1c1c);
+    padding: 10px 0;
+    margin: 20px 0;
+}
+
+.product-scroll-track {
+    display: flex;
+    animation: scroll-products 25s linear infinite;
+    gap: 40px;
+}
+
+.product-scroll-item {
+    flex: 0 0 auto;
+    text-align: center;
+    color: white;
+    min-width: 150px;
+    max-width: 150px;
+    font-size: 14px;
+}
+
+.product-scroll-item img {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    margin-bottom: 8px;
+    border-radius: 8px;
+    background-color: white;
+    padding: 6px;
+}
+
+@keyframes scroll-products {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+

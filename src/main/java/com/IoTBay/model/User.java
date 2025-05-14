@@ -14,6 +14,7 @@ public class User implements Serializable {
     private int mobile;
     private String city;
     private String state;
+    private boolean isAdmin;
 
 
     public User(String FName, String LName, String Email, String password, String address, String phone, String city, String state) {
@@ -25,6 +26,32 @@ public class User implements Serializable {
         this.phone = phone;
         this.city = city;
         this.state = state;
+    }
+
+    //Adding admin
+    public User(String FName, String LName, String Email, String password, String address, String phone, String city, String state, boolean isAdmin) {
+        this.FName = FName;
+        this.LName = LName;
+        this.Email = Email;
+        this.password = password;
+        this.address = address;
+        this.phone = phone;
+        this.city = city;
+        this.state = state;
+        this.isAdmin = isAdmin;
+    }
+
+    public User(int id,String FName, String LName, String Email, String password, String address, String phone, String city, String state, boolean isAdmin) {
+        this.id = id;
+        this.FName = FName;
+        this.LName = LName;
+        this.Email = Email;
+        this.password = password;
+        this.address = address;
+        this.phone = phone;
+        this.city = city;
+        this.state = state;
+        this.isAdmin = isAdmin;
     }
 
     public  User(int id, String FName, String LName, String Email, String password, String address, String phone, String city, String state) {
@@ -66,6 +93,8 @@ public class User implements Serializable {
     public String getState() {return state; }
 
     public String getPhone() {return phone; }
+
+    public boolean getAdmin() {return isAdmin; }
 
     public void setId(int id) {
         this.id = id;

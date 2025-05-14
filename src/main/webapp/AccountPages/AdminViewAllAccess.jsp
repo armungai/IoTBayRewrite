@@ -1,12 +1,6 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: andrewmungai
-  Date: 6/5/2025
-  Time: 2:22 pm
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page import="com.IoTBay.model.*, com.IoTBay.model.dao.*" %>
 <%@ page import="java.util.List" %>
+<%@ page import="java.util.Map" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page isELIgnored="false" %>
 
@@ -19,38 +13,39 @@
         return;
     }
 
-    List<Order> orders = dao.Orders().getOrdersByUserId(user.getId());
+    List<Map<String,String>> entries = dao.Users().getAllWebsiteLogins();
 %>
 
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Your Orders</title>
+    <title>Your Payments</title>
     <link rel="stylesheet" href="../assets/styles.css">
 </head>
 <body>
 
 <%@ include file="../Components/navbar.jsp" %>
 
-<h1 style="text-align:center;">Order History</h1>
+<h1 style="text-align:center;">Global Access History</h1>
 
 <div style="width: 80%; margin: 0 auto;" class="view-all-data">
-    <% if (orders.isEmpty()) { %>
-    <p>You haven’t placed any orders yet.</p>
-    <a class="return-ref" href = "/accountSettings.jsp">Back</a>
+    <% if (entries.isEmpty()) { %>
+    <p>You haven’t made any logins yet.</p>
     <% } else { %>
     <table class="order-history-table">
         <tr>
-            <th>Order ID</th>
-            <th>Payment ID</th>
-            <th>Date</th>
+            <th>User ID</th>
+            <th>Login Time</th>
+            <th>Logout Time</th>
+
         </tr>
-        <% for (Order order : orders) { %>
+        <% for (Map<String,String> entry : entries) { %>
         <tr>
-            <td><%= order.getOrderId() %></td>
-            <td><%= order.getPaymentId() %></td>
-            <td><%= order.getOrderDate() %></td>
+            <td><%= entry.get("userID")%></td>
+            <td><%= entry.get("loginTime")%></td>
+            <td><%= entry.get("logoutTime") %></td>
+
         </tr>
         <% } %>
     </table>
