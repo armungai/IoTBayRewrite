@@ -27,15 +27,7 @@
         <div class="login-signup-card">
             <h1>Login</h1>
 
-            <%
-                String error = (String) session.getAttribute("loginError");
-                if (error != null) {
-            %>
-            <p style="color: red;"><%= error %></p>
-            <%
-                    session.removeAttribute("loginError");
-                }
-            %>
+
 
             <form action="LoginServlet" method="post" class="login-form">
                 <div class="login-signup-form-field">
@@ -48,6 +40,14 @@
                     <input type="password" id="password" name="password" required placeholder="Password">
                 </div>
                 <br>
+                <%
+                    String error = request.getParameter("error");
+                    if ("1".equals(error)) {
+                %>
+                <p style="color:red;">Invalid email or password.</p>
+                <%
+                    }
+                %>
 
                 <button type="submit" class="register-button">Login</button>
 
