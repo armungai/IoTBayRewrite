@@ -8,6 +8,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class UserDBManager extends DBManager<User> {
     // dont need a get user count
@@ -30,7 +34,6 @@ public class UserDBManager extends DBManager<User> {
 
         preparedStatement.executeUpdate();
 
-        // Get the auto-generated user ID
         preparedStatement = connection.prepareStatement("SELECT MAX(UserId) FROM USERS");
         ResultSet rs = preparedStatement.executeQuery();
         if (rs.next()) {
@@ -50,12 +53,36 @@ public class UserDBManager extends DBManager<User> {
         return new User(resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3), resultSet.getString(4), resultSet.getString(5), resultSet.getString(6), resultSet.getString(7), resultSet.getString(8), resultSet.getString(9));
     }
 
-    public void update(User oldUser, User newUser) throws SQLException {
-        PreparedStatement preparedStatement = connection.prepareStatement("UPDATE USERS SET Email = ?, Password = ? WHERE UserId = ?");
-        preparedStatement.setString(1, newUser.getEmail());
-        preparedStatement.setString(2, newUser.getPassword());
-        preparedStatement.executeUpdate();
-    }
+@Override
+public void update(User oldUser, User newUser) throws SQLException {
+    String sql =
+            "UPDATE USERS " +
+                    "  SET Email     = ?, " +
+                    "      Password  = ?, " +
+                    "      FirstName = ?, " +
+                    "      LastName  = ?, " +
+                    "      mobile    = ?, " +
+                    "      address   = ?, " +
+                    "      City      = ?, " +
+                    "      State     = ? " +
+                    "WHERE UserId    = ?";
+
+    PreparedStatement ps = connection.prepareStatement(sql);
+    ps.setString(1, newUser.getEmail());
+    ps.setString(2, newUser.getPassword());
+    ps.setString(3, newUser.getFName());
+    ps.setString(4, newUser.getLName());
+    ps.setString(5, newUser.getPhone());
+    ps.setString(6, newUser.getAddress());
+    ps.setString(7, newUser.getCity());
+    ps.setString(8, newUser.getState());
+    ps.setInt   (9, oldUser.getId());
+
+    ps.executeUpdate();
+    ps.close();
+}
+
+
 
     public void delete(User user) throws SQLException {
         PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM USERS WHERE UserId = ?");
@@ -72,6 +99,7 @@ public class UserDBManager extends DBManager<User> {
 
         ResultSet rs = stmt.executeQuery();
         if (rs.next()) {
+            boolean adminFlag = rs.getInt("isAdmin") == 1;
             return new User(
                     rs.getInt("userID"),
                     rs.getString("firstName"),
@@ -81,11 +109,87 @@ public class UserDBManager extends DBManager<User> {
                     rs.getString("address"),
                     rs.getString("mobile"),
                     rs.getString("city"),
-                    rs.getString("state")
+                    rs.getString("state"),
+                    adminFlag
             );
         } else {
             return null;
         }
+    }
+
+    public void updateAccessLog(int id, String loginTime, String logoutTime) throws SQLException {
+        PreparedStatement statement = connection.prepareStatement(
+                "INSERT INTO websiteAccessLog (userID,loginTime, logoutTime) VALUES (?, ?, ?)"
+        );
+
+        statement.setInt(1, id);
+        statement.setString(2, loginTime);
+        statement.setString(3, logoutTime);
+        statement.executeUpdate();
+
+    }
+
+    public void addnNewLogin(int id, String loginTime) throws SQLException {
+        PreparedStatement statement = connection.prepareStatement(
+                "INSERT INTO websiteAccessLog (userID,loginTime) VALUES (?, ?)"
+        );
+
+        statement.setInt(1, id);
+        statement.setString(2, loginTime);
+        statement.executeUpdate();
+
+    }
+
+    public void addLogout(String logoutTime) throws SQLException {
+        PreparedStatement statement = connection.prepareStatement("SELECT * FROM websiteAccessLog WHERE logID = (SELECT MAX(logID) FROM websiteAccessLog)");
+
+        ResultSet rs = statement.executeQuery();
+
+        if (rs.next()) {
+            int logID = rs.getInt("logID");
+            PreparedStatement preparedStatement = connection.prepareStatement("UPDATE websiteAccessLog SET logoutTime = ? where logID = ?");
+            preparedStatement.setString(1, logoutTime);
+            preparedStatement.setInt(2, logID);
+            preparedStatement.executeUpdate();
+        }
+
+    }
+
+    public List<Map<String,String>> getUserLoginTimesByUserID(int userID) throws SQLException {
+        List<Map<String,String>> entries = new ArrayList<>();
+        String sql = "SELECT * FROM websiteAccessLog WHERE userID = ?";
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setInt(1, userID);
+        ResultSet rs = preparedStatement.executeQuery();
+
+        while (rs.next()) {
+            Map<String, String> map = new HashMap<>();
+            map.put("loginTime", rs.getString("loginTime"));
+            map.put("logoutTime", rs.getString("logoutTime"));
+
+            entries.add(map);
+
+        }
+
+        return entries;
+    }
+
+    public List<Map<String,String>> getAllWebsiteLogins() throws SQLException {
+        List<Map<String,String>> entries = new ArrayList<>();
+        String sql = "SELECT * FROM websiteAccessLog";
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        ResultSet rs = preparedStatement.executeQuery();
+
+        while (rs.next()) {
+            Map<String, String> map = new HashMap<>();
+            map.put("userID", rs.getString("userID"));
+            map.put("loginTime", rs.getString("loginTime"));
+            map.put("logoutTime", rs.getString("logoutTime"));
+
+            entries.add(map);
+        }
+
+        return entries;
     }
 
 

@@ -11,6 +11,8 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import com.IoTBay.model.dao.DBManager;
 import jakarta.servlet.http.HttpSession;
@@ -29,10 +31,21 @@ public class LoginServlet extends HttpServlet {
 
         try {
             User user = db.Users().findByEmailAndPassword(email, password);
-
+            String loginTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
             if (user != null) {
+                try {
+                    db.Users().addnNewLogin(user.getId(),loginTime);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
                 session.setAttribute("loggedInUser", user);
-                resp.sendRedirect("home.jsp");
+                session.setAttribute("loginTime", loginTime);
+                if (user.getAdmin()) {
+                    resp.sendRedirect("adminHome.jsp");
+                } else {
+                    resp.sendRedirect("home.jsp");
+                }
+
             } else {
                 session.setAttribute("loginError", "Invalid email or password");
                 resp.sendRedirect("login.jsp");
