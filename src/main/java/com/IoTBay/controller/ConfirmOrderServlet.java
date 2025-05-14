@@ -38,6 +38,15 @@ public class ConfirmOrderServlet extends HttpServlet {
             }
 
             session.setAttribute("selectedPaymentMethod", method);
+
+            String shippingAddress = request.getParameter("address");
+            String shippingMethod = request.getParameter("shippingMethod");
+            String shippingDate = request.getParameter("shippingDate");
+
+            session.setAttribute("selectedShippingAddress", shippingAddress);
+            session.setAttribute("selectedShippingMethod", shippingMethod);
+            session.setAttribute("selectedShippingDate", shippingDate);
+
             response.sendRedirect("checkout.jsp");
 
         } catch (NumberFormatException | SQLException e) {

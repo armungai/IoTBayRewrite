@@ -17,7 +17,7 @@
     <% if (userObj == null) { %>
     <a href="index.jsp" class="logo">IoT Bay</a>
     <% } else { %>
-    <a href="home.jsp" class="logo">IoT Bay</a>
+    <a href="<%= request.getContextPath() %>/home.jsp" class="logo">IoT Bay</a>
     <% } %>
     <ul class="nav-links">
         <li><a href="<%= request.getContextPath() %>/products.jsp">Products</a></li>

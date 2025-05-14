@@ -22,6 +22,10 @@
             <h3><span class="icon">💳</span> Edit Payment Details</h3>
         </a>
 
+        <a href="AccountPages/viewShipmentHistory.jsp" class="account-settings-card">
+            <h3><span class="icon">🚚</span> View Shipment History</h3>
+        </a>
+
         <a href="AccountPages/viewAllOrders.jsp" class="account-settings-card">
             <h3><span class="icon">📦</span> View Order History</h3>
         </a>
@@ -29,6 +33,7 @@
         <a href="AccountPages/paymentHistory.jsp" class="account-settings-card">
             <h3><span class="icon">💵</span> View Payment History</h3>
         </a>
+
     </div>
 </div>
 

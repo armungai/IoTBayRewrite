@@ -8,6 +8,10 @@
     User user = (User) session.getAttribute("loggedInUser");
     Cart cart = (Cart) session.getAttribute("cart");
     PaymentMethod method = (PaymentMethod) session.getAttribute("selectedPaymentMethod");
+    String shippingAddress = (String) session.getAttribute("selectedShippingAddress");
+    String shippingMethod = (String) session.getAttribute("selectedShippingMethod");
+    String shippingDate = (String) session.getAttribute("selectedShippingDate");
+
     if (user == null || cart == null || method == null) {
         response.sendRedirect("login.jsp");
         return;
@@ -27,21 +31,22 @@
 <h1 style="text-align:center;">Checkout Summary</h1>
 
 <div class="checkout-summary" style="width: 80%; margin: 0 auto;">
-    <div class = "checkout-section">
-        <h2>Shipping Address</h2>
-        <p><%= user.getFName() %>, <%= user.getLName()%></p>
-        <p><%= user.getAddress() %></p>
-        <p><%= user.getCity() %>, <%= user.getState() %></p>
-        <p><%= user.getEmail() %> | <%= user.getPhone() %></p>
-    </div>
-    <div class = "checkout-section">
+
+    <div class="checkout-section">
         <h2>Payment Method</h2>
         <p><%= method.getType() %> ending in <%= method.getCardNumber().substring(method.getCardNumber().length() - 4) %></p>
         <p>Name on card: <%= method.getNameOnCard() %></p>
         <p>Expiry: <%= method.getExpiry() %></p>
     </div>
 
-    <div  class="checkout-section">
+    <div class="checkout-section">
+        <h2>Shipping Details</h2>
+        <p>Address: <%= shippingAddress %></p>
+        <p>Method: <%= shippingMethod %></p>
+        <p>Date: <%= shippingDate %></p>
+    </div>
+
+    <div class="checkout-section">
         <h2>Order Summary</h2>
         <table class="order-history-table">
             <tr>
@@ -73,6 +78,7 @@
     <button type="submit" class="register-button form-group-a" style="width: 190px">
         <a href="cart.jsp">← Back to Cart</a>
     </button>
+
     <form action="PlaceOrderServlet" method="post" class="place-order-section">
         <input type="hidden" name="methodId" value="<%= method.getMethodId() %>">
         <button class="register-button" style="margin-top: 20px; width: 180px">Place Order</button>

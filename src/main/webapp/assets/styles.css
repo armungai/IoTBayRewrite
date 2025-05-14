@@ -673,3 +673,26 @@ a.link-button:hover {
 .footer-right a:hover {
     color: #ff9800;
 }
+
+.checkout-grid {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 40px;
+    margin-top: 20px;
+}
+
+.left-column, .right-column {
+    flex: 1;
+    min-width: 300px;
+}
+
+.left-column h2,
+.right-column h2 {
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.small-box {
+    width: 200px;
+}
