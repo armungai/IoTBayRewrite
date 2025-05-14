@@ -55,7 +55,7 @@
 }
 
 .nav-links a.active {
-    background-color: #045F5F;
+    background-color: #ff9800;
     color: white;
 }
 /* STYLING FOR NAVIGATION BAR */
@@ -664,6 +664,384 @@ a.link-button:hover {
     color: #ff9800;
 }
 
+
+
+/* EDIT DEVICE FORM CARD */
+.edit-form-container {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 30px;
+    background: linear-gradient(to bottom right, #3a3a3a, #1c1c1c);
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    color: white;
+}
+.edit-form-container h1 {
+    margin-top: 0;
+    color: #ff9800;
+    text-align: center;
+}
+.edit-form-container label {
+    display: block;
+    margin: 12px 0 4px;
+    font-weight: bold;
+}
+.edit-form-container input[type="text"],
+.edit-form-container input[type="number"],
+.edit-form-container textarea {
+    width: 100%;
+    padding: 8px;
+    border: none;
+    border-radius: 6px;
+    margin-bottom: 12px;
+    font-size: 1rem;
+}
+.edit-form-container button.btn {
+    display: block;
+    width: 100%;
+    background-color: #ff9800;
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-top: 16px;
+}
+.edit-form-container button.btn:hover {
+    background-color: #e68900;
+}
+.edit-form-container .link-button {
+    display: inline-block;
+    margin-top: 12px;
+    color: coral;
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+.edit-form-container .link-button:hover {
+    text-decoration: underline;
+}
+
+.manage-container {
+    background: #2c2c2c;
+    padding: 24px;
+    border-radius: 12px;
+    max-width: 800px;
+    margin: 40px auto;
+    color: white;
+}
+
+.manage-actions {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.manage-table-wrapper {
+    max-height: 60vh;
+    overflow: auto;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.manage-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.manage-table th,
+.manage-table td {
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+.manage-table thead {
+    background: #444;
+    color: white;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+.manage-table thead th:nth-child(-n+3) {
+    background-color: #000;
+    color: #fff;
+}
+
+.manage-table tbody td:nth-child(-n+3) {
+    color: #000;
+}
+
+/* --------------------------------------------------
+   Admin buttons inside each card
+   -------------------------------------------------- */
+.admin-buttons {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    margin-top: 12px;
+}
+
+a.btn,
+a.btn-warning,
+a.btn-danger,
+a.btn-add {
+    display: inline-block;
+    background-color: #ff9800;
+    color: white;
+    text-decoration: none;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 18px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+a.btn:hover,
+a.btn-warning:hover,
+a.btn-danger:hover,
+a.btn-add:hover {
+    transform: scale(1.03);
+}
+
+/* --------------------------------------------------
+   Dark‐card form wrapper
+   -------------------------------------------------- */
+.form-container {
+    max-width: 500px;
+    margin: 40px auto;
+    padding: 24px;
+    background: linear-gradient(to bottom right, #3a3a3a, #1c1c1c);
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+    color: white;
+}
+.form-container h1 {
+    margin-bottom: 16px;
+    text-align: center;
+}
+.form-container label {
+    margin-top: 12px;
+    font-weight: 600;
+}
+.form-container input[type="text"],
+.form-container input[type="number"],
+.form-container textarea {
+    width: 100%;
+    padding: 8px;
+    margin-top: 4px;
+    border: none;
+    border-radius: 6px;
+}
+.form-container textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+.form-container .btn {
+    display: inline-block;
+    margin-top: 16px;
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   Unauthorized page centered card
+   ────────────────────────────────────────────────────────────────────────── */
+.unauthorized-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 120px);
+    padding: 20px;
+    background: linear-gradient(to bottom right, #e1e1e1, #b6b6b6);
+}
+
+.unauthorized-card {
+    background: linear-gradient(to bottom right, #3a3a3a, #1c1c1c);
+    color: #ffffff;
+    padding: 40px 30px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    max-width: 400px;
+    width: 100%;
+}
+
+.unauthorized-card h1 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-size: 2rem;
+    color: #ff4d4f;
+}
+
+.unauthorized-card p {
+    margin-bottom: 1.5rem;
+    font-size: 1.1rem;
+    line-height: 1.4;
+}
+
+.unauthorized-card .btn {
+    display: inline-block;
+    background-color: #ff9800;
+    color: #fff;
+    text-decoration: none;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    transition: transform 0.2s ease;
+}
+
+.unauthorized-card .btn:hover {
+    transform: scale(1.03);
+}
+
+/**/
+
+/* === Admin “Add New Product” button === */
+.admin-add-container {
+    text-align: right;
+    margin: 16px 0;
+}
+
+.add-new-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #ff9800;
+    color: #fff;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background-color 0.2s ease;
+}
+.add-new-btn:hover {
+    background-color: #e68a00;
+}
+
+/*!* === Product grid layout === *!*/
+/*.product-grid {*/
+/*    display: flex;*/
+/*    flex-wrap: wrap;*/
+/*    gap: 20px;*/
+/*    justify-content: center;*/
+/*}*/
+
+/*!* === Product card === *!*/
+/*.product-card {*/
+/*    width: 260px;*/
+/*    background: #fff;*/
+/*    border-radius: 8px;*/
+/*    box-shadow: 0 4px 12px rgba(0,0,0,0.1);*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*    overflow: hidden;*/
+/*}*/
+
+/*.product-card img {*/
+/*    width: 100%;*/
+/*    height: 180px;*/
+/*    object-fit: cover;*/
+/*}*/
+
+/*.product-card-content {*/
+/*    padding: 16px;*/
+/*    flex: 1;*/
+/*}*/
+
+/*.product-price {*/
+/*    font-size: 18px;*/
+/*    font-weight: bold;*/
+/*    margin: 8px 0;*/
+/*}*/
+.product-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.product-card {
+    width: 260px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.product-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+
+.product-card-content {
+    padding: 16px;
+    flex: 1;
+}
+
+.product-price {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 8px 0;
+}
+
+/* === Action buttons row === */
+/*.product-actions {*/
+/*    display: flex;*/
+/*    justify-content: center;*/
+/*    gap: 10px;*/
+/*    padding: 12px;*/
+/*    background: #f5f5f5;*/
+/*}*/
+.product-card .actions {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;           /* space between buttons */
+    margin-top: 1rem;
+}
+
+.product-card .actions .btn {
+    background-color: #ff9800;  /* same orange as Add to Cart */
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+}
+
+.btn {
+    padding: 8px 14px;
+    border-radius: 6px;
+    text-decoration: none;
+    color: #fff;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+}
+
+/* Edit button (orange) */
+.btn-edit {
+    background-color: #ffa500;
+}
+.btn-edit:hover {
+    background-color: #e59400;
+}
+
+/* Delete button (red) */
+.btn-delete {
+    background-color: #dc3545;
+}
+.btn-delete:hover {
+    background-color: #c82333;
+}
+
+/* Add-to-cart button (green) */
+.btn-add-to-cart {
+    background-color: #28a745;
+}
+.btn-add-to-cart:hover {
+    background-color: #218838;
+}
+=======
 .return-ref {
     padding: 5px;
     background-color: lightgrey;
@@ -763,4 +1141,5 @@ a.link-button:hover {
         transform: translateX(-50%);
     }
 }
+
 
