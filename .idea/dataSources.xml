@@ -11,11 +11,11 @@
       </jdbc-additional-properties>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
-    <data-source source="LOCAL" name="IoTBayNew.db" uuid="81a97cc0-1474-47b6-b73f-536f74df8c27">
+    <data-source source="LOCAL" name="IoTBayNEWSATABASE.db" uuid="aefe1a8d-5f0f-4dc8-bdf4-a2c8cddd291d">
       <driver-ref>sqlite.xerial</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
-      <jdbc-url>jdbc:sqlite:$USER_HOME$/.SmartTomcat/IoTBayRewrite/IoTBay-Rewrite/IoTBayNew.db</jdbc-url>
+      <jdbc-url>jdbc:sqlite:$USER_HOME$/.SmartTomcat/IOTBAYFINAL/IoTBay-Rewrite/IoTBayNEWSATABASE.db</jdbc-url>
       <jdbc-additional-properties>
         <property name="com.intellij.clouds.kubernetes.db.enabled" value="false" />
       </jdbc-additional-properties>

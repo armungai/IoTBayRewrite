@@ -73,11 +73,14 @@
     <button type="submit" class="register-button form-group-a" style="width: 190px">
         <a href="cart.jsp">← Back to Cart</a>
     </button>
+    <%--
+    Start of the payment creation process
+   --%>
     <form action="PlaceOrderServlet" method="post" class="place-order-section">
         <input type="hidden" name="methodId" value="<%= method.getMethodId() %>">
         <button class="register-button" style="margin-top: 20px; width: 180px">Place Order</button>
     </form>
 </div>
-
+<%@ include file="Components/footer.jsp" %>
 </body>
 </html>

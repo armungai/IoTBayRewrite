@@ -24,3 +24,4 @@
         <p class="continue-wo-signing-in"> <a href="products.jsp">continue without signing in</a> </p>
     </div>
 </div>
+<%@ include file="Components/footer.jsp" %>
