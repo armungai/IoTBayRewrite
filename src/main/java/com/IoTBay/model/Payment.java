@@ -2,6 +2,8 @@ package com.IoTBay.model;
 
 import java.io.Serializable;
 
+
+// Simple model class for the payment class
 public class Payment implements Serializable {
     private int paymentId;
     private int userId;
@@ -10,7 +12,7 @@ public class Payment implements Serializable {
     private String date;
     private String status;
 
-    public Payment() {}
+    public Payment() {} // needed for it to be a java bean
 
     public Payment(int userId, int methodId, double amount, String date, String status) {
         this.userId = userId;

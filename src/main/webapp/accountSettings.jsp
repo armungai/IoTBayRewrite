@@ -66,7 +66,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>IoT Bay – Account Settings</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IoT Store - Account</title>
+
     <link rel="stylesheet" href="assets/styles.css">
 </head>
 <body>
@@ -108,15 +111,36 @@
             <h3><span class="icon">📦</span> View My Order History</h3>
         </a>
         <a href="AccountPages/paymentHistory.jsp" class="account-settings-card">
-            <h3><span class="icon">💵</span> View My Payment History</h3>
+
+            <h3><span class="icon">💵</span> View Payment History</h3>
         </a>
-        <a href="AccountPages/userLog.jsp" class="account-settings-card">
-            <h3><span class="icon">🕘</span> View My Website Access History</h3>
+
+        <a href="AccountPages/userLog.jsp" class = "account-settings-card">
+            <h3> <span class="icon">🔍</span> Website Access History</h3>
         </a>
-        <% } %>
+
+        <%
+            if(loggedinuser.getAdmin()){
+        %>
+        <a href ="AccountPages/AdminViewAllAccess.jsp" class = "account-settings-card">
+            <h3><span class="icon">🔑 </span>View All Website Access History</h3>
+        </a>
+
+        <%}%>
+
+
+        <%
+            if(loggedinuser.getAdmin()){
+        %>
+        <a href ="AccountPages/paymentHistory.jsp" class = "account-settings-card">
+            <h3><span class="icon">🔑</span> View All Payment History</h3>
+        </a>
+
+        <%}%>
 
     </div>
 </div>
+<%@ include file="Components/footer.jsp" %>
 </body>
 </html>
 

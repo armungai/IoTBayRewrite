@@ -23,6 +23,11 @@
 <jsp:include page="Components/navbar.jsp" />
 
 <h1 style="text-align:center;">All Products</h1>
-<jsp:include page="Components/productGrid.jsp" />
+
+
+<%@ include file="Components/productGrid.jsp" %>
+<%@ include file="Components/footer.jsp" %>
+
+
 </body>
 </html>

@@ -40,7 +40,6 @@ public class DeletePaymentMethodServlet extends HttpServlet {
         try {
             int methodId = Integer.parseInt(request.getParameter("methodId"));
 
-            // Load the method and check ownership
             System.out.println(user.getId());
             PaymentMethod method = dao.PaymentMethods().get(new PaymentMethod(methodId, user.getId(), null, null, null, null, null));
             System.out.println(method.getMethodId());

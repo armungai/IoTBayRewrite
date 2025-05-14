@@ -66,20 +66,28 @@
     <div class="error"><%= err %></div>
     <% } %>
 
-    <form action="LoginServlet" method="post">
-        <label for="email">Email Address</label>
-        <input id="email" type="text" name="email" placeholder="Enter your email" required/>
-
-        <label for="pwd">Password</label>
-        <input id="pwd" type="password" name="password" placeholder="Password" required/>
-
-        <button type="submit">Login</button>
-    </form>
-
-    <p style="margin-top:12px;">
-        New here? <a href="register.jsp">Register now!</a><br>
-        <a href="home.jsp" style="color:#bbb; font-size:.9em;">Continue without signing in</a>
-    </p>
+<div class="login-signup-card-container">
+    <div class="login-signup-card">
+        <h1>
+            Login
+        </h1>
+        <form action="LoginServlet" method="post" class="login-form">
+            <div class="login-signup-form-field">
+                <label for="email">Email Address</label><br>
+                <input type="email" id="email" name="email" required placeholder="Enter your email">
+            </div>
+            <br>
+            <div class="login-signup-form-field">
+                <label for="password">Password</label><br>
+                <input type="password" id="password" name="email" required placeholder="Password">
+            </div>
+            <div class ="login-and-signup-container">
+                <a href="home.jsp">Login</a>
+                <a href="register.jsp">Register</a>
+            </div>
+        </form>
+        <p class="continue-wo-signing-in"> <a href="products.jsp">continue without signing in</a> </p>
+    </div>
 </div>
-</body>
-</html>
+<%@ include file="Components/footer.jsp" %>
+

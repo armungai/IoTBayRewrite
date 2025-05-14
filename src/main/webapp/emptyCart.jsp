@@ -17,6 +17,6 @@
     <h1>Your Cart is Empty</h1>
     <p>Looks like you haven't added anything yet.</p>
 </div>
-
+<%@ include file="Components/footer.jsp" %>
 </body>
 </html>
