@@ -93,6 +93,6 @@
     </div>
   </div>
 </main>
-
+<%@ include file="/Components/footer.jsp" %>
 </body>
 </html>

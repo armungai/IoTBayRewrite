@@ -1,6 +1,7 @@
 package com.IoTBay.model;
+import java.io.Serializable;
 
-public class Shipment {
+public class Shipment implements Serializable{
     private int shipmentId;
     private int orderId;
     private String address;
@@ -15,6 +16,11 @@ public class Shipment {
         this.address = address;
         this.shippingMethod = shippingMethod;
         this.shippingDate = shippingDate;
+    }
+
+    /** used when creating a brand-new Shipment before saving */
+    public Shipment(int orderId, String address, String shippingMethod, String shippingDate) {
+        this(0, orderId, address, shippingMethod, shippingDate);
     }
 
     public int getShipmentId() { return shipmentId; }

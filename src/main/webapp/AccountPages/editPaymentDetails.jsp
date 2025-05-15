@@ -80,3 +80,4 @@
     </section>
 </main>
 </body>
+<%@ include file="/Components/footer.jsp" %>

@@ -29,7 +29,6 @@
     <p><strong>Shipment ID:</strong> <%= shipmentId %></p>
     <% } %>
 
-    <a href="products.jsp" class="register-button" style="margin-top: 20px;">Continue Shopping</a>
     <a href="home.jsp" class="register-button" style="margin-top: 20px;">Continue Shopping</a>
 </main>
 <%@ include file="Components/footer.jsp" %>
