@@ -5,3 +5,4 @@
 </head>
 
 <%@include file="../Components/navbar.jsp"%>
+<%@ include file="/Components/footer.jsp" %>

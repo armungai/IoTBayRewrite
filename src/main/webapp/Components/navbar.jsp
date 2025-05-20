@@ -20,7 +20,14 @@
 </head>
 
 <nav class="navbar">
-    <a class="logo" href="<%=cp%>/home.jsp">IoT Bay</a>
+    <%
+        Object userObj = session.getAttribute("loggedInUser");
+    %>
+    <% if (userObj == null) { %>
+    <a href="index.jsp" class="logo">IoT Bay</a>
+    <% } else { %>
+    <a href="<%= request.getContextPath() %>/home.jsp" class="logo">IoT Bay</a>
+    <% } %>
     <ul class="nav-links">
         <li><a href="<%=cp%>/home.jsp">Home</a></li>
         <li><a href="<%=cp%>/products.jsp">Products</a></li>

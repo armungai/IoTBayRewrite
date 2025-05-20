@@ -14,6 +14,7 @@ public class DAO {
     private final ProductDBManager productDBManager;
     private final OrderDBManager orderDBManager;
     private final OrderItemDBManager orderItemDBManager;
+    private final ShipmentDBManager shipmentDBManager;
 
     public DAO() throws SQLException {
         tables = new ArrayList<>();
@@ -26,12 +27,14 @@ public class DAO {
             productDBManager = new ProductDBManager(connection);
             orderDBManager = new OrderDBManager(connection);
             orderItemDBManager = new OrderItemDBManager(connection);
+            shipmentDBManager = new ShipmentDBManager(connection);
 
             tables.add(userDBManager);
             tables.add(paymentDBManager);
             tables.add(paymentMethodDBManager);
             tables.add(orderDBManager);
             tables.add(orderItemDBManager);
+            tables.add(shipmentDBManager);
         } catch (SQLException e) {
             throw new SQLException("Error initializing DBManagers", e);
         }
@@ -54,9 +57,8 @@ public class DAO {
     }
 
     public ProductDBManager Products() {
-        return  productDBManager;
+        return productDBManager;
     }
-
 
     public OrderDBManager Orders() {
         return orderDBManager;
@@ -64,5 +66,10 @@ public class DAO {
 
     public OrderItemDBManager OrderItems() {
         return orderItemDBManager;
+    }
+
+    public ShipmentDBManager Shipments() {
+
+        return shipmentDBManager;
     }
 }

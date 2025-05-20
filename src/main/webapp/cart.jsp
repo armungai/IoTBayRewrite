@@ -10,6 +10,7 @@
 <%
     DAO dao = (DAO) session.getAttribute("db");
     User user = (User) session.getAttribute("loggedInUser");
+    String tempShippingAddress = (String) session.getAttribute("tempShippingAddress");
 
     if (dao == null || user == null) {
         response.sendRedirect("index.jsp");
@@ -32,6 +33,21 @@
     <meta charset="UTF-8">
     <title>Your Cart</title>
     <link rel="stylesheet" href="assets/styles.css">
+    <style>
+        #shippingMethod {
+            width: 200px !important;
+        }
+        .form-group + .form-group {
+            margin-top: 15px;
+        }
+    </style>
+    <script>
+        function handleShippingAddressChange(value) {
+            if (value === 'new') {
+                window.location.href = 'addShippingAddress.jsp';
+            }
+        }
+    </script>
 </head>
 <body>
 
@@ -70,8 +86,6 @@
 </table>
 
 <div class="confirm-order-wrapper">
-    <h2>Select Payment Method</h2>
-
     <%
         if (methods == null || methods.isEmpty()) {
     %>
@@ -82,21 +96,62 @@
     <%
     } else {
     %>
-
     <form action="ConfirmOrderServlet" method="post">
-        <div>
-            <label for="methodId">Choose a payment method:</label><br>
-            <select name="methodId" id="methodId" required>
-                <%
-                    for (PaymentMethod method : methods) {
-                        String label = method.getType() + " ending in " + method.getCardNumber().substring(method.getCardNumber().length() - 4);
-                %>
-                <option value="<%= method.getMethodId() %>"><%= label %></option>
-                <% } %>
-            </select>
+        <div class="checkout-grid">
+
+            <div class="left-column">
+                <h2>Select Payment Method</h2>
+                <div class="form-group">
+                    <label for="methodId">Choose a payment method:</label><br>
+                    <select name="methodId" id="methodId" required>
+                        <% for (PaymentMethod method : methods) {
+                            String label = method.getType() + " ending in " + method.getCardNumber().substring(method.getCardNumber().length() - 4); %>
+                        <option value="<%= method.getMethodId() %>"><%= label %></option>
+                        <% } %>
+                    </select>
+                </div>
+            </div>
+
+            <div class="right-column">
+                <h2>Shipping Information</h2>
+
+                <div class="form-group">
+                    <label for="address">Choose a shipping address:</label>
+                    <select name="address" id="address" onchange="handleShippingAddressChange(this.value)" required>
+                        <% if (tempShippingAddress != null) { %>
+                        <option value="<%= tempShippingAddress %>" selected>
+                            New Address: <%= tempShippingAddress %>
+                        </option>
+                        <% } %>
+                        <option value="<%= user.getAddress() + ", " + user.getCity() + ", " + user.getState() %>" <%= (tempShippingAddress == null ? "selected" : "") %>>
+                            Use my registered address: <%= user.getAddress() %>, <%= user.getCity() %>, <%= user.getState() %>
+                        </option>
+                        <option value="new">Change address</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="shippingMethod">Shipping Method:</label>
+                    <select name="shippingMethod" id="shippingMethod" required>
+                        <option value="Standard">Standard</option>
+                        <option value="Express">Express</option>
+                        <option value="Same Day">Same Day</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="shippingDate">Shipping Start Date:</label>
+                    <input type="date" id="shippingDate" name="shippingDate" required min="<%= java.time.LocalDate.now()%>">
+                </div>
+
+                <input type="hidden" name="orderId" value="123">
+            </div>
         </div>
-        <div >
-            <button type="submit" class="register-button " style="width: 180px">Proceed to Checkout</button>
+
+        <div>
+            <button type="submit" class="register-button" style="width: 180px; margin-top: 30px;">
+                Proceed to Checkout
+            </button>
         </div>
     </form>
     <%

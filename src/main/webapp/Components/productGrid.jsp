@@ -4,12 +4,12 @@
 <%@ page session="true" %>
 
 <%
-  DAO dao = (DAO) session.getAttribute("db");
+  DAO dao2 = (DAO) session.getAttribute("db");
   User me = (User) session.getAttribute("loggedInUser");
 
   List<Product> products = Collections.emptyList();
-  if (dao != null) {
-    products = dao.Products().getAllProducts();
+  if (dao2 != null) {
+    products = dao2.Products().getAllProducts();
   }
 %>
 
