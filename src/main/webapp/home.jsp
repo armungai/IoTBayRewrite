@@ -13,17 +13,14 @@
 --%>
 
 <%
-  // Grab session
   DAO dao   = (DAO) session.getAttribute("db");
   User user = (User) session.getAttribute("loggedInUser");
 
-  // If you happen to be an admin, go straight to adminHome
   if (user != null && user.getAdmin()) {
     response.sendRedirect("adminHome.jsp");
     return;
   }
 
-  // Otherwise load ALL products for guest
   List<Product> products = dao.Products().getAllProducts();
   request.setAttribute("products", products);
   request.setAttribute("isAdmin", false);
@@ -37,19 +34,21 @@
   <link rel="stylesheet" href="assets/styles.css">
 </head>
 <body>
-<jsp:include page="Components/navbar.jsp" flush="true"/>
-
-<div class="welcome-heading">
+<%@ include file="Components/navbar.jsp" %>
+<div class ="welcome-heading">
   <% if (user != null) { %>
-  <h1>Welcome back to IoT Bay, <%= user.getFName() %>!</h1>
-  <h2>Your one-stop shop for all things smart!</h2>
+  <h1>Welcome, <%=user.getFName()%></h1>
+  <h2>We're glad to see you back</h2>
   <% } else { %>
   <h1>Welcome to IoT Bay!</h1>
   <h2><a href="index.jsp">Log in</a> or keep browsing as guest.</h2>
   <% } %>
 </div>
 
+
 <h1>Featured Products</h1>
 <jsp:include page="Components/productGrid.jsp" flush="true"/>
+<%@include file="Components/footer.jsp"%>
+
 </body>
 </html>

@@ -38,6 +38,7 @@
 <div style="width: 80%; margin: 0 auto;" class="view-all-data">
     <% if (orders.isEmpty()) { %>
     <p>You haven’t placed any orders yet.</p>
+    <a class="return-ref" href = "/accountSettings.jsp">Back</a>
     <% } else { %>
     <table class="order-history-table">
         <tr>
@@ -55,6 +56,6 @@
     </table>
     <% } %>
 </div>
-
+<%@ include file="/Components/footer.jsp" %>
 </body>
 </html>

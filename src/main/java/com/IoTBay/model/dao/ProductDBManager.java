@@ -43,6 +43,16 @@ public class ProductDBManager extends DBManager<Product> {
     // Public wrapper for updating a product
     public void updateProduct(Product oldProduct, Product newProduct) throws SQLException {
         update(oldProduct, newProduct);  // Calls the protected update() in DBManager
+    public Product addProduct(Product product) throws SQLException {
+        return add(product);
+    }
+
+    public void deleteProduct(Product product) throws SQLException {
+        delete(product);
+    }
+
+    public void updateProduct(Product oldProduct, Product newProduct) throws SQLException {
+        update(oldProduct, newProduct);
     }
 
     @Override
@@ -65,7 +75,7 @@ public class ProductDBManager extends DBManager<Product> {
     }
 
     @Override
-    protected void update(Product oldProduct, Product newProduct) throws SQLException {
+    public void update(Product oldProduct, Product newProduct) throws SQLException {
         String sql = "UPDATE products SET productName=?, price=?, productDescription=?, productImageAddress=? WHERE productID=?";
         PreparedStatement ps = connection.prepareStatement(sql);
         ps.setString(1, newProduct.getProductName());
@@ -73,7 +83,6 @@ public class ProductDBManager extends DBManager<Product> {
         ps.setString(3, newProduct.getProductDescription());
         ps.setString(4, newProduct.getProductImageAddress());
         ps.setInt(5, oldProduct.getProductID());
-
         ps.executeUpdate();
     }
 

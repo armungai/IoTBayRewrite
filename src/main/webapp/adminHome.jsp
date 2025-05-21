@@ -8,39 +8,36 @@
 <%@ page import="com.IoTBay.model.User, com.IoTBay.model.dao.DAO, com.IoTBay.model.Product, java.util.List" %>
 <%@ page session="true" %>
 <%
-    // 1) Must be logged in as admin
-    User user = (User) session.getAttribute("loggedInUser");
-    if (user == null || !user.getAdmin()) {
-        response.sendRedirect("unauthorized.jsp");
-        return;
-    }
+  User user = (User) session.getAttribute("loggedInUser");
+  if (user == null || !user.getAdmin()) {
+    response.sendRedirect("unauthorized.jsp");
+    return;
+  }
 
-    // 2) Load products & flag for the grid
-    DAO dao = (DAO) session.getAttribute("db");
-    List<Product> products = dao.Products().getAllProducts();
+  DAO dao = (DAO) session.getAttribute("db");
+  List<Product> products = dao.Products().getAllProducts();
 
-    request.setAttribute("products", products);
-    request.setAttribute("isAdmin", true);
+  request.setAttribute("products", products);
+  request.setAttribute("isAdmin", true);
 %>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Admin Dashboard</title>
-    <link rel="stylesheet" href="assets/styles.css">
+  <meta charset="UTF-8">
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="assets/styles.css">
 </head>
 <body>
-<jsp:include page="/Components/navbar.jsp" flush="true" />
+ <jsp:include page="/Components/navbar.jsp" flush="true" />
 
-<div class="welcome-heading">
+  <div class="welcome-heading">
     <h1>Welcome, Admin <%= user.getFName() %>!</h1>
     <h2>Manage IoT Devices Below</h2>
-</div>
+  </div>
 
-<h1>All Products</h1>
-<jsp:include page="/Components/productGrid.jsp" flush="true" />
-
+  <h1>All Products</h1>
+  <jsp:include page="/Components/productGrid.jsp" flush="true" />
 </body>
 </html>
 

@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Login – IoT Bay</title>
+    <title>IoT Bay – Login</title>
     <link rel="stylesheet" href="assets/styles.css">
     <style>
         .login-card {
@@ -23,7 +23,7 @@
             padding: 8px;
             border-radius: 4px;
             border: none;
-            margin-bottom: 8px;
+            margin-bottom: 12px;
         }
         .login-card button {
             background-color: #ff9800;
@@ -33,33 +33,38 @@
             color: white;
             cursor: pointer;
             font-size: 1rem;
+            width: 100%;
         }
         .login-card .error {
             background: #a00000;
             padding: 8px;
             border-radius: 4px;
-            margin-bottom: 12px;
+            margin-bottom: 16px;
             text-align: center;
         }
-        .login-card a {
+        .login-card .links {
+            text-align: center;
+            margin-top: 16px;
+        }
+        .login-card .links a {
             color: #ff9800;
             text-decoration: none;
+            margin: 0 8px;
         }
-        .login-card a:hover { text-decoration: underline; }
+        .login-card .links a:hover { text-decoration: underline; }
     </style>
 </head>
 <body>
-<jsp:include page="Components/navbar.jsp"/>
+<%@ include file="Components/navbar.jsp" %>
 
 <div class="login-card">
     <h1>Login</h1>
-
     <%
-        HttpSession s = request.getSession(false);
+        HttpSession sess = request.getSession(false);
         String err = null;
-        if (s!=null) {
-            err = (String)s.getAttribute("loginError");
-            s.removeAttribute("loginError");
+        if (sess != null) {
+            err = (String) sess.getAttribute("loginError");
+            sess.removeAttribute("loginError");
         }
         if (err != null) {
     %>
@@ -68,18 +73,33 @@
 
     <form action="LoginServlet" method="post">
         <label for="email">Email Address</label>
-        <input id="email" type="text" name="email" placeholder="Enter your email" required/>
+        <input
+                type="email"
+                id="email"
+                name="email"
+                required
+                placeholder="you@example.com"
+                value="<%= request.getParameter("email") == null ? "" : request.getParameter("email") %>"
+        />
 
-        <label for="pwd">Password</label>
-        <input id="pwd" type="password" name="password" placeholder="Password" required/>
+        <label for="password">Password</label>
+        <input
+                type="password"
+                id="password"
+                name="password"
+                required
+                placeholder="***********"
+        />
 
         <button type="submit">Login</button>
     </form>
 
-    <p style="margin-top:12px;">
-        New here? <a href="register.jsp">Register now!</a><br>
-        <a href="home.jsp" style="color:#bbb; font-size:.9em;">Continue without signing in</a>
-    </p>
+    <div class="links">
+        <a href="register.jsp">Register</a> |
+        <a href="product.jsp">Continue as Guest</a>
+    </div>
 </div>
+
+<%@ include file="Components/footer.jsp" %>
 </body>
 </html>

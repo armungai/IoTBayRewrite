@@ -1,6 +1,7 @@
 package com.IoTBay.model.dao;
 
 
+import java.io.File;
 import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.DriverManager;
@@ -16,7 +17,9 @@ public class DBConnector {
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
+
         String url =  "jdbc:sqlite:IoTBayNew.db";
+
         try {
             connection = DriverManager.getConnection(url);
             connection.setAutoCommit(true);

@@ -13,7 +13,6 @@
 
 <!DOCTYPE html>
 <html>
-<%--<link rel="stylesheet" href="assets/styles.css">--%>
 <head>
     <% String cp = request.getContextPath(); %>
     <base href="<%=cp%>/">
@@ -21,13 +20,23 @@
 </head>
 
 <nav class="navbar">
-    <a class="logo" href="<%=cp%>/home.jsp">IoT Bay</a>
+    <%
+        Object userObj = session.getAttribute("loggedInUser");
+    %>
+    <% if (userObj == null) { %>
+    <a href="index.jsp" class="logo">IoT Bay</a>
+    <% } else { %>
+    <a href="<%= request.getContextPath() %>/home.jsp" class="logo">IoT Bay</a>
+    <% } %>
     <ul class="nav-links">
         <li><a href="<%=cp%>/home.jsp">Home</a></li>
         <li><a href="<%=cp%>/products.jsp">Products</a></li>
         <li><a href="<%=cp%>/accountSettings.jsp">Account</a></li>
+
+        <% if (!isAdmin) { %>
         <li><a href="<%=cp%>/cart.jsp">Cart</a></li>
+        <% } %>
         <li><a href="<%=cp%>/LogoutServlet">Logout</a></li>
     </ul>
-</nav>s
+</nav>
 </html>

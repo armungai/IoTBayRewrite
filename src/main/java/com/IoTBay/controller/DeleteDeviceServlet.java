@@ -24,7 +24,9 @@ public class DeleteDeviceServlet extends HttpServlet {
 
         try {
             int id = Integer.parseInt(request.getParameter("id"));
+
             Product product = new Product(id); // ✅ uses new constructor
+
             dao.Products().deleteProduct(product);
             response.sendRedirect("manageDevices.jsp?deleted=1");
         } catch (Exception e) {
