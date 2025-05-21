@@ -27,7 +27,7 @@
     <main style="flex: 1;">
         <div class="welcome-heading">
             <h1>Welcome to IoT Bay</h1>
-            <h2>Your one-stop shop for all things smart!</h2>
+            <h2 class="orange-gradient-text">Your one-stop shop for all things smart!</h2>
         </div>
 
         <div class="login-signup-card-container">
