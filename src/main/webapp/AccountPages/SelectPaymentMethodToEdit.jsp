@@ -28,7 +28,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>IoT Store - Register</title>
-  <link rel="stylesheet" href="../assets/styles.css">
+  <link rel="stylesheet" href="assets/styles.css">
 </head>
 <body>
 
@@ -93,6 +93,6 @@
     </div>
   </div>
 </main>
-<%@ include file="/Components/footer.jsp" %>
+
 </body>
 </html>

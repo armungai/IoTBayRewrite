@@ -23,12 +23,10 @@
 
 %>
 
-
-
 <head>
     <meta charset="UTF-8">
     <title>Edit Payment Details</title>
-    <link rel="stylesheet" href="../assets/styles.css">
+    <link rel="stylesheet" href="assets/styles.css">
 </head>
 
 
@@ -37,6 +35,19 @@
 
 <main class="register-container">
     <section class="register-section">
+        <div style="margin-bottom: 20px;">
+            <a href="accountSettings.jsp" style="
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: orange;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        font-weight: bold;
+        font-size: 16px;
+        transition: background-color 0.3s ease;
+        ">Back</a>
+        </div>
         <h1>Edit Your Payment Details</h1>
 
         <form action="<%= request.getContextPath() %>/EditPaymentServlet" method="post" class="login-form">

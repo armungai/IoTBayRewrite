@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="assets/styles.css">
 </head>
 <body>
-<%@ include file="Components/navbar.jsp" %>
 
 <main class="register-container">
     <section class="register-section">

@@ -38,9 +38,35 @@
 <div style="width: 80%; margin: 0 auto;" class="view-all-data">
     <% if (orders.isEmpty()) { %>
     <p>You haven’t placed any orders yet.</p>
-    <a class="return-ref" href = "/accountSettings.jsp">Back</a>
+<%--    <a class="return-ref" href = "accountSettings.jsp">Back</a>--%>
+    <div style="margin-bottom: 20px;">
+        <a href="accountSettings.jsp" style="
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: orange;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        font-weight: bold;
+        font-size: 16px;
+        transition: background-color 0.3s ease;
+    ">Back</a>
+    </div>
     <% } else { %>
     <table class="order-history-table">
+        <div style="margin-bottom: 20px;">
+            <a href="accountSettings.jsp" style="
+                display: inline-block;
+                padding: 10px 20px;
+                background-color: orange;
+                color: white;
+                text-decoration: none;
+                border-radius: 5px;
+                font-weight: bold;
+                font-size: 16px;
+                transition: background-color 0.3s ease;
+            ">Back</a>
+        </div>
         <tr>
             <th>Order ID</th>
             <th>Payment ID</th>

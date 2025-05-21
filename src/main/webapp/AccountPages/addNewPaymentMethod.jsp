@@ -10,67 +10,73 @@
         response.sendRedirect("login.jsp");
         return;
     }
+
+    String methodIdParam = request.getParameter("methodId");
+    if (methodIdParam == null) {
+        response.sendRedirect("accountSettings.jsp");
+        return;
+    }
+
+    int methodId = Integer.parseInt(methodIdParam);
+    PaymentMethod method = dao.PaymentMethods().get(methodId);
+
+
 %>
 
-<!DOCTYPE html>
-<html>
+
+
 <head>
     <meta charset="UTF-8">
-    <title>Add New Payment Method</title>
+    <title>Edit Payment Details</title>
     <link rel="stylesheet" href="../assets/styles.css">
 </head>
+
 
 <body>
 <%@ include file="../Components/navbar.jsp" %>
 
 <main class="register-container">
     <section class="register-section">
-        <h1>Add New Payment Method</h1>
+        <h1>Edit Your Payment Details</h1>
 
-        <form action="<%= request.getContextPath() %>/AddPaymentMethodServlet" method="post" class="login-form">
+        <form action="<%= request.getContextPath() %>/EditPaymentServlet" method="post" class="login-form">
+            <input type="hidden" name="methodId" value="<%= method.getMethodId() %>">
 
             <div class="form-group">
                 <label for="method">Payment Method:</label>
                 <select id="method" name="method" required>
-                    <option value="" disabled selected>Select payment method</option>
-                    <option value="Credit Card">Credit Card</option>
-                    <option value="Debit Card">Debit Card</option>
-                    <option value="PayPal">PayPal</option>
-                    <option value="Bank Transfer">Bank Transfer</option>
+                    <option value="" disabled>Select payment method</option>
+                    <option value="Credit Card" <%= "Credit Card".equals(method.getType()) ? "selected" : "" %>>Credit Card</option>
+                    <option value="Debit Card" <%= "Debit Card".equals(method.getType()) ? "selected" : "" %>>Debit Card</option>
+                    <option value="PayPal" <%= "PayPal".equals(method.getType()) ? "selected" : "" %>>PayPal</option>
+                    <option value="Bank Transfer" <%= "Bank Transfer".equals(method.getType()) ? "selected" : "" %>>Bank Transfer</option>
                 </select>
             </div>
 
             <div class="form-group">
                 <label for="cardNumber">Card Number:</label>
-                <input type="text" id="cardNumber" name="cardNumber" placeholder="Enter card number">
+                <input type="text" id="cardNumber" name="cardNumber" value="<%= method.getCardNumber() != null ? method.getCardNumber() : "" %>" required>
             </div>
 
             <div class="form-group">
                 <label for="nameOnCard">Name on Card:</label>
-                <input type="text" id="nameOnCard" name="nameOnCard" placeholder="Enter name as on card">
+                <input type="text" id="nameOnCard" name="nameOnCard" value="<%= method.getNameOnCard() != null ? method.getNameOnCard() : "" %>" required>
             </div>
 
             <div class="form-group">
                 <label for="expiry">Expiry Date:</label>
-                <input type="month" id="expiry" name="expiry">
+                <input type="month" id="expiry" name="expiry" value="<%= method.getExpiry() != null ? method.getExpiry() : "" %>" required>
             </div>
 
             <div class="form-group">
                 <label for="cvv">CVV:</label>
-                <input type="password" id="cvv" name="cvv" placeholder="Enter CVV">
+                <input type="password" id="cvv" name="cvv" value="<%= method.getCvv() != null ? method.getCvv() : "" %>" required>
             </div>
 
             <div class="form-group">
-                <button type="submit"  class="btn btn-secondary"style="width: 220px"> Confirm Payment Method</button>
-            </div>
-            <div class="form-group">
-            <button type="submit"  class="btn btn-secondary" style="width: 250px">
-                <a href="<%= request.getContextPath() %>/AccountPages/SelectPaymentMethodToEdit.jsp">← Back to Payment Methods</a>
-            </button>
+                <button type="submit" class="register-button">Update Payment</button>
             </div>
         </form>
     </section>
 </main>
-
 </body>
-</html>

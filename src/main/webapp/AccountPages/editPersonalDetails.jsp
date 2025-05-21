@@ -17,14 +17,26 @@
 <head>
     <meta charset="UTF-8">
     <title>Edit Personal Details</title>
-    <link rel="stylesheet" href="../assets/styles.css">
+    <link rel="stylesheet" href="assets/styles.css">
 </head>
 <body>
 <%@ include file="../Components/navbar.jsp" %>
 
 <main class="register-container">
     <section class="register-section">
-        <a class="return-ref" href="/accountSettings.jsp">Back</a>
+    <div style="margin-bottom: 20px;">
+        <a href="accountSettings.jsp" style="
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: orange;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        font-weight: bold;
+        font-size: 16px;
+        transition: background-color 0.3s ease;
+    ">Back</a>
+    </div>
         <h1>Edit Your Personal Details</h1>
 
         <form action="<%= request.getContextPath() %>/EditUserServlet" method="post" class="login-form">

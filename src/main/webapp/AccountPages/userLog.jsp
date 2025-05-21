@@ -38,9 +38,20 @@
 <body>
 
 <%@ include file="../Components/navbar.jsp" %>
-
 <h1 style="text-align:center;">Access History</h1>
-
+<div style="margin-bottom: 20px;">
+  <a href="accountSettings.jsp" style="
+                display: inline-block;
+                padding: 10px 20px;
+                background-color: orange;
+                color: white;
+                text-decoration: none;
+                border-radius: 5px;
+                font-weight: bold;
+                font-size: 16px;
+                transition: background-color 0.3s ease;
+            ">Back</a>
+</div>
 <% if(dateSelected != null){ %>
 <h2  style="text-align:center;">Date Selected: <%=dateSelected%></h2>
 <% } %>

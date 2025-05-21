@@ -119,9 +119,20 @@
 <body>
 
 <%@ include file="../Components/navbar.jsp" %>
-
 <h1 style="text-align:center;">Shipment History</h1>
-
+<div style="margin-bottom: 20px;">
+  <a href="accountSettings.jsp" style="
+                display: inline-block;
+                padding: 10px 20px;
+                background-color: orange;
+                color: white;
+                text-decoration: none;
+                border-radius: 5px;
+                font-weight: bold;
+                font-size: 16px;
+                transition: background-color 0.3s ease;
+            ">Back</a>
+</div>
 <div style="width: 80%; margin: 0 auto;" class="view-all-data">
 
   <form method="get" class="search-bar">
