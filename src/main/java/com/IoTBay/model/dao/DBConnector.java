@@ -1,6 +1,7 @@
 package com.IoTBay.model.dao;
 
 
+import java.io.File;
 import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.DriverManager;
@@ -16,7 +17,9 @@ public class DBConnector {
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
-        String url =  "jdbc:sqlite:IoTBayNEWSATABASE.db";
+        String url ="jdbc:sqlite:/Users/andrewmungai/.SmartTomcat/IOTBAYFINAL/IoTBay-Rewrite/IoTBayNEWSATABASE.db";
+
+        System.out.println("Absolute DB Path: " + new File("IoTBayNEWSATABASE.db").getAbsolutePath());
         try {
             connection = DriverManager.getConnection(url);
             connection.setAutoCommit(true);

@@ -1,17 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="IoTBay.db" uuid="66eff50a-20f1-47a1-a4cd-f6e46ab9c949">
-      <driver-ref>sqlite.xerial</driver-ref>
-      <synchronize>true</synchronize>
-      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
-      <jdbc-url>jdbc:sqlite:$USER_HOME$/.SmartTomcat/IoTBay-Rewrite/IoTBay-Rewrite/IoTBay.db</jdbc-url>
-      <jdbc-additional-properties>
-        <property name="com.intellij.clouds.kubernetes.db.enabled" value="false" />
-      </jdbc-additional-properties>
-      <working-dir>$ProjectFileDir$</working-dir>
-    </data-source>
-    <data-source source="LOCAL" name="IoTBayNEWSATABASE.db" uuid="aefe1a8d-5f0f-4dc8-bdf4-a2c8cddd291d">
+    <data-source source="LOCAL" name="IoTBayNEWSATABASE.db" uuid="0024256b-354a-44ed-8b67-c763529398fb">
       <driver-ref>sqlite.xerial</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
