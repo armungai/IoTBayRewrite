@@ -34,7 +34,6 @@ public class UserDBManager extends DBManager<User> {
 
         preparedStatement.executeUpdate();
 
-        // Get the auto-generated user ID
         preparedStatement = connection.prepareStatement("SELECT MAX(UserId) FROM USERS");
         ResultSet rs = preparedStatement.executeQuery();
         if (rs.next()) {
@@ -54,12 +53,36 @@ public class UserDBManager extends DBManager<User> {
         return new User(resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3), resultSet.getString(4), resultSet.getString(5), resultSet.getString(6), resultSet.getString(7), resultSet.getString(8), resultSet.getString(9));
     }
 
-    public void update(User oldUser, User newUser) throws SQLException {
-        PreparedStatement preparedStatement = connection.prepareStatement("UPDATE USERS SET Email = ?, Password = ? WHERE UserId = ?");
-        preparedStatement.setString(1, newUser.getEmail());
-        preparedStatement.setString(2, newUser.getPassword());
-        preparedStatement.executeUpdate();
-    }
+@Override
+public void update(User oldUser, User newUser) throws SQLException {
+    String sql =
+            "UPDATE USERS " +
+                    "  SET Email     = ?, " +
+                    "      Password  = ?, " +
+                    "      FirstName = ?, " +
+                    "      LastName  = ?, " +
+                    "      mobile    = ?, " +
+                    "      address   = ?, " +
+                    "      City      = ?, " +
+                    "      State     = ? " +
+                    "WHERE UserId    = ?";
+
+    PreparedStatement ps = connection.prepareStatement(sql);
+    ps.setString(1, newUser.getEmail());
+    ps.setString(2, newUser.getPassword());
+    ps.setString(3, newUser.getFName());
+    ps.setString(4, newUser.getLName());
+    ps.setString(5, newUser.getPhone());
+    ps.setString(6, newUser.getAddress());
+    ps.setString(7, newUser.getCity());
+    ps.setString(8, newUser.getState());
+    ps.setInt   (9, oldUser.getId());
+
+    ps.executeUpdate();
+    ps.close();
+}
+
+
 
     public void delete(User user) throws SQLException {
         PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM USERS WHERE UserId = ?");
@@ -76,6 +99,7 @@ public class UserDBManager extends DBManager<User> {
 
         ResultSet rs = stmt.executeQuery();
         if (rs.next()) {
+            boolean adminFlag = rs.getInt("isAdmin") == 1;
             return new User(
                     rs.getInt("userID"),
                     rs.getString("firstName"),
@@ -86,7 +110,7 @@ public class UserDBManager extends DBManager<User> {
                     rs.getString("mobile"),
                     rs.getString("city"),
                     rs.getString("state"),
-                    rs.getBoolean("isAdmin")
+                    adminFlag
             );
         } else {
             return null;

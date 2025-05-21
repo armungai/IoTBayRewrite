@@ -65,12 +65,11 @@ public class PlaceOrderServlet extends HttpServlet {
             // 2. Create and store the order object, link it to the payment
             Order order = new Order(
                     user.getId(),
-                    payment.getPaymentId(),  // Assuming paymentId was set during `.add(...)`
+                    payment.getPaymentId(),
                     LocalDateTime.now()
             );
             order = dao.Orders().add(order); // ADDING IT TO THE DATABASE
 
-            // 3. Add each item as an OrderItem
             for (CartItem item : cart.getItems()) {
                 OrderItem orderItem = new OrderItem(
                         order.getOrderId(),
@@ -82,9 +81,26 @@ public class PlaceOrderServlet extends HttpServlet {
                 dao.OrderItems().add(orderItem);
             }
 
-            // 4. Cleanup
+            String shippingAddress = (String) session.getAttribute("selectedShippingAddress");
+            String shippingMethod = (String) session.getAttribute("selectedShippingMethod");
+            String shippingDate = (String) session.getAttribute("selectedShippingDate");
+
+            Shipment shipment = new Shipment(
+                    0,
+                    order.getOrderId(),
+                    shippingAddress,
+                    shippingMethod,
+                    shippingDate
+            );
+            shipment = dao.Shipments().add(shipment);
+
+            session.setAttribute("shipmentId", shipment.getShipmentId());
+
             cart.clear();
             session.removeAttribute("selectedPaymentMethod");
+            session.removeAttribute("selectedShippingAddress");
+            session.removeAttribute("selectedShippingMethod");
+            session.removeAttribute("selectedShippingDate");
 
             response.sendRedirect("orderConfirmation.jsp?orderId=" + order.getOrderId());
 

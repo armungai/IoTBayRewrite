@@ -1051,6 +1051,7 @@ a.btn-add:hover {
 .btn-add-to-cart:hover {
     background-color: #218838;
 }
+
 .return-ref {
     padding: 5px;
     background-color: lightgrey;
@@ -1151,6 +1152,7 @@ a.btn-add:hover {
     }
 }
 
+
 .payment-controls-container {
     width: 80%;
     margin: 0 auto 40px auto;
@@ -1205,3 +1207,4 @@ a.btn-add:hover {
     margin-top: 10px;
     text-align: center;
 }
+
