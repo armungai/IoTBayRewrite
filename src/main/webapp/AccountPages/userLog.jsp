@@ -83,6 +83,6 @@
   </table>
   <% } %>
 </div>
-
+<%@ include file="/Components/footer.jsp" %>
 </body>
 </html>

@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Login – IoT Bay</title>
+    <title>IoT Bay – Login</title>
     <link rel="stylesheet" href="assets/styles.css">
     <style>
         .login-card {
@@ -23,7 +23,7 @@
             padding: 8px;
             border-radius: 4px;
             border: none;
-            margin-bottom: 8px;
+            margin-bottom: 12px;
         }
         .login-card button {
             background-color: #ff9800;
@@ -33,61 +33,73 @@
             color: white;
             cursor: pointer;
             font-size: 1rem;
+            width: 100%;
         }
         .login-card .error {
             background: #a00000;
             padding: 8px;
             border-radius: 4px;
-            margin-bottom: 12px;
+            margin-bottom: 16px;
             text-align: center;
         }
-        .login-card a {
+        .login-card .links {
+            text-align: center;
+            margin-top: 16px;
+        }
+        .login-card .links a {
             color: #ff9800;
             text-decoration: none;
+            margin: 0 8px;
         }
-        .login-card a:hover { text-decoration: underline; }
+        .login-card .links a:hover { text-decoration: underline; }
     </style>
 </head>
 <body>
-<jsp:include page="Components/navbar.jsp"/>
+<%@ include file="Components/navbar.jsp" %>
 
 <div class="login-card">
     <h1>Login</h1>
-
     <%
-        HttpSession s = request.getSession(false);
+        HttpSession sess = request.getSession(false);
         String err = null;
-        if (s!=null) {
-            err = (String)s.getAttribute("loginError");
-            s.removeAttribute("loginError");
+        if (sess != null) {
+            err = (String) sess.getAttribute("loginError");
+            sess.removeAttribute("loginError");
         }
         if (err != null) {
     %>
     <div class="error"><%= err %></div>
     <% } %>
 
-<div class="login-signup-card-container">
-    <div class="login-signup-card">
-        <h1>
-            Login
-        </h1>
-        <form action="LoginServlet" method="post" class="login-form">
-            <div class="login-signup-form-field">
-                <label for="email">Email Address</label><br>
-                <input type="email" id="email" name="email" required placeholder="Enter your email">
-            </div>
-            <br>
-            <div class="login-signup-form-field">
-                <label for="password">Password</label><br>
-                <input type="password" id="password" name="email" required placeholder="Password">
-            </div>
-            <div class ="login-and-signup-container">
-                <a href="home.jsp">Login</a>
-                <a href="register.jsp">Register</a>
-            </div>
-        </form>
-        <p class="continue-wo-signing-in"> <a href="products.jsp">continue without signing in</a> </p>
+    <form action="LoginServlet" method="post">
+        <label for="email">Email Address</label>
+        <input
+                type="email"
+                id="email"
+                name="email"
+                required
+                placeholder="you@example.com"
+                value="<%= request.getParameter("email") == null ? "" : request.getParameter("email") %>"
+        />
+
+        <label for="password">Password</label>
+        <input
+                type="password"
+                id="password"
+                name="password"
+                required
+                placeholder="***********"
+        />
+
+        <button type="submit">Login</button>
+    </form>
+
+    <div class="links">
+        <a href="register.jsp">Register</a> |
+        <a href="product.jsp">Continue as Guest</a>
     </div>
 </div>
-<%@ include file="Components/footer.jsp" %>
 
+<%@ include file="Components/footer.jsp" %>
+</body>
+</html>

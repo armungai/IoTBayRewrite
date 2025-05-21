@@ -28,83 +28,140 @@ import java.time.LocalDateTime;
  * -
  */
 
+//
+//@WebServlet("/PlaceOrderServlet")
+//public class PlaceOrderServlet extends HttpServlet {
+//    @Override
+//    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+//            throws ServletException, IOException {
+//
+//        // Retrieve session and objects needed to place the order
+//        HttpSession session = request.getSession();
+//        DAO dao = (DAO) session.getAttribute("db"); // DAO object used to interact with the database
+//        User user = (User) session.getAttribute("loggedInUser"); // Get the logged-in user
+//        Cart cart = (Cart) session.getAttribute("cart"); // Get the current session shopping cart
+//        PaymentMethod method = (PaymentMethod) session.getAttribute("selectedPaymentMethod"); // Gets the selected payment method
+//
+//        // Quick validation of all session attributes
+//        if (dao == null || user == null || cart == null || method == null || cart.isEmpty()) {
+//            // Send user back if somehow something was missing
+//            response.sendRedirect("cart.jsp?error=missingData");
+//            return;
+//        }
+//
+//
+//        try {
+//           // 1. Create and store a Payment object
+//            Payment payment = new Payment(
+//                    0, // can just be zero because we will set it in the DAO
+//                    user.getId(),
+//                    method.getMethodId(),
+//                    cart.getTotalPrice(),
+//                    LocalDateTime.now().toString(), // store a timestamp for records (needed for sorting later)
+//                    "Paid"
+//            );
+//            dao.Payments().add(payment); // ADDING IT TO THE DATABASE
+//
+//            // 2. Create and store the order object, link it to the payment
+//            Order order = new Order(
+//                    user.getId(),
+//                    payment.getPaymentId(),
+//                    LocalDateTime.now()
+//            );
+//            order = dao.Orders().add(order); // ADDING IT TO THE DATABASE
+//
+//            for (CartItem item : cart.getItems()) {
+//                OrderItem orderItem = new OrderItem(
+//                        order.getOrderId(),
+//                        item.getProduct().getProductID(),
+//                        item.getProduct().getProductName(),
+//                        item.getProduct().getPrice(),
+//                        item.getQuantity()
+//                );
+//                dao.OrderItems().add(orderItem);
+//            }
+//
+//            String shippingAddress = (String) session.getAttribute("selectedShippingAddress");
+//            String shippingMethod = (String) session.getAttribute("selectedShippingMethod");
+//            String shippingDate = (String) session.getAttribute("selectedShippingDate");
+//
+//            Shipment shipment = new Shipment(
+//                    0,
+//                    order.getOrderId(),
+//                    shippingAddress,
+//                    shippingMethod,
+//                    shippingDate
+//            );
+//            shipment = dao.Shipments().add(shipment);
+//
+//            session.setAttribute("shipmentId", shipment.getShipmentId());
+//
+//            cart.clear();
+//            session.removeAttribute("selectedPaymentMethod");
+//            session.removeAttribute("selectedShippingAddress");
+//            session.removeAttribute("selectedShippingMethod");
+//            session.removeAttribute("selectedShippingDate");
+//
+//            response.sendRedirect("orderConfirmation.jsp?orderId=" + order.getOrderId());
+//
+//        } catch (SQLException e) {
+//            throw new ServletException("Failed to place order", e);
+//        }
+//    }
+//}
 
 @WebServlet("/PlaceOrderServlet")
 public class PlaceOrderServlet extends HttpServlet {
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
+        HttpSession session = req.getSession();
+        DAO dao = (DAO) session.getAttribute("db");
+        User user = (User) session.getAttribute("loggedInUser");
+        Cart cart = (Cart) session.getAttribute("cart");
 
-        // Retrieve session and objects needed to place the order
-        HttpSession session = request.getSession();
-        DAO dao = (DAO) session.getAttribute("db"); // DAO object used to interact with the database
-        User user = (User) session.getAttribute("loggedInUser"); // Get the logged-in user
-        Cart cart = (Cart) session.getAttribute("cart"); // Get the current session shopping cart
-        PaymentMethod method = (PaymentMethod) session.getAttribute("selectedPaymentMethod"); // Gets the selected payment method
-
-        // Quick validation of all session attributes
-        if (dao == null || user == null || cart == null || method == null || cart.isEmpty()) {
-            // Send user back if somehow something was missing
-            response.sendRedirect("cart.jsp?error=missingData");
+        if (dao == null || user == null || cart == null || cart.isEmpty()) {
+            resp.sendRedirect("cart.jsp?error=missingData");
             return;
         }
 
-
         try {
-           // 1. Create and store a Payment object
-            Payment payment = new Payment(
-                    0, // can just be zero because we will set it in the DAO
-                    user.getId(),
-                    method.getMethodId(),
-                    cart.getTotalPrice(),
-                    LocalDateTime.now().toString(), // store a timestamp for records (needed for sorting later)
-                    "Paid"
-            );
-            dao.Payments().add(payment); // ADDING IT TO THE DATABASE
+            // 1) payment
+            int methodId = Integer.parseInt(req.getParameter("methodId"));
+            double amount = cart.getTotalPrice();
+            String now = LocalDateTime.now().toString();
+            Payment payment = new Payment(user.getId(), methodId, amount, now, "Paid");
+            dao.Payments().add(payment);
 
-            // 2. Create and store the order object, link it to the payment
-            Order order = new Order(
-                    user.getId(),
-                    payment.getPaymentId(),
-                    LocalDateTime.now()
-            );
-            order = dao.Orders().add(order); // ADDING IT TO THE DATABASE
+            // 2) order
+            Order order = new Order(user.getId(), payment.getPaymentId(), LocalDateTime.now());
+            order = dao.Orders().add(order);
 
+            // 3) order items
             for (CartItem item : cart.getItems()) {
-                OrderItem orderItem = new OrderItem(
+                OrderItem oi = new OrderItem(
                         order.getOrderId(),
                         item.getProduct().getProductID(),
                         item.getProduct().getProductName(),
                         item.getProduct().getPrice(),
                         item.getQuantity()
                 );
-                dao.OrderItems().add(orderItem);
+                dao.OrderItems().add(oi);
             }
 
-            String shippingAddress = (String) session.getAttribute("selectedShippingAddress");
-            String shippingMethod = (String) session.getAttribute("selectedShippingMethod");
-            String shippingDate = (String) session.getAttribute("selectedShippingDate");
+            // 4) shipments
+            String address   = req.getParameter("shippingAddress");
+            String shippingMethod = req.getParameter("shippingMethod");
+            String shippingDate   = req.getParameter("shippingDate");
+            Shipment shipment = new Shipment(order.getOrderId(), address, shippingMethod, shippingDate);
+            dao.Shipments().add(shipment);
 
-            Shipment shipment = new Shipment(
-                    0,
-                    order.getOrderId(),
-                    shippingAddress,
-                    shippingMethod,
-                    shippingDate
-            );
-            shipment = dao.Shipments().add(shipment);
-
-            session.setAttribute("shipmentId", shipment.getShipmentId());
-
+            // 5) clear
             cart.clear();
             session.removeAttribute("selectedPaymentMethod");
-            session.removeAttribute("selectedShippingAddress");
-            session.removeAttribute("selectedShippingMethod");
-            session.removeAttribute("selectedShippingDate");
+            resp.sendRedirect("orderConfirmation.jsp?orderId=" + order.getOrderId());
 
-            response.sendRedirect("orderConfirmation.jsp?orderId=" + order.getOrderId());
-
-        } catch (SQLException e) {
+        } catch (Exception e) {
             throw new ServletException("Failed to place order", e);
         }
     }

@@ -137,6 +137,15 @@ CREATE TABLE OrderItems (
                             FOREIGN KEY (productId) REFERENCES Products(productId)
 );
 
+CREATE TABLE IF NOT EXISTS Shipments (
+                           shipmentId INTEGER PRIMARY KEY AUTOINCREMENT,
+                           orderId INTEGER NOT NULL,
+                           address TEXT NOT NULL,
+                           shippingMethod TEXT NOT NULL,
+                           shippingDate TEXT NOT NULL,
+                           FOREIGN KEY (orderId) REFERENCES Orders(orderId)
+);
+
 -- Create products table (unchanged)
 CREATE TABLE products (
                           productID INTEGER PRIMARY KEY AUTOINCREMENT,

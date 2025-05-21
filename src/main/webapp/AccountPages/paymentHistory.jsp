@@ -193,6 +193,7 @@
     <% } %>
 </table>
 </div>
+<%@ include file="/Components/footer.jsp" %>
 </body>
 
 <%@ include file="../Components/footer.jsp" %>

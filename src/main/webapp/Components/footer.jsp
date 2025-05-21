@@ -5,9 +5,9 @@
     </main>
     <footer class="sticky-footer">
         <p>&copy; 2025 IoTBay. All rights reserved.
-            | <a href="/about.jsp">About</a>
-            | <a href="/contact.jsp">Contact</a>
-            | <a href="/privacy.jsp">Privacy</a>
+            | <a href="#">About</a>
+            | <a href="#">Contact</a>
+            | <a href="#">Privacy</a>
         </p>
     </footer>
 </div>
