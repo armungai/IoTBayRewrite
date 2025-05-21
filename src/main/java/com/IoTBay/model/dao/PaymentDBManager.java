@@ -28,7 +28,8 @@ public class PaymentDBManager extends DBManager<Payment> {
         PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
         ps.setInt(1, payment.getUserId());
         ps.setInt(2, payment.getMethodId());
-        ps.setDouble(3, payment.getAmount());
+        double roundedAmount = Math.round(payment.getAmount() * 100.0) / 100.0;
+        ps.setDouble(3, roundedAmount);
         ps.setString(4, payment.getDate());
         ps.setString(5, payment.getStatus());
         ps.executeUpdate();

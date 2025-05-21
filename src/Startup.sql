@@ -180,6 +180,7 @@ CREATE TABLE websiteAccessLog(
                                  loginTime VARCHAR(255),
                                  logoutTime VARCHAR(255),
                                  FOREIGN KEY(userID) REFERENCES users(userID)
+
 );
 
 CREATE TABLE IF NOT EXISTS Shipments (
@@ -188,10 +189,17 @@ CREATE TABLE IF NOT EXISTS Shipments (
                                          address TEXT,
                                          shippingMethod TEXT,
                                          shippingDate TEXT
+
 );
 
 INSERT INTO websiteAccessLog(userID, loginTime, logoutTime) VALUES (1,'2025-05-08 02:02:14','2025-05-08 02:02:20');
 
+
+INSERT INTO users(firstName, lastName, email, password, address, mobile, city, state, isAdmin)  VALUES  ('Tony', 'Tran', 'admin@a', 'a', 'Charles St', '0123456789', 'Sydney', 'NSW', 1)
+
+SELECT userID, firstName, lastName, email, isAdmin FROM users WHERE email='admin@a' AND password='a';
+
 INSERT INTO users(firstName, lastName, email, password, address, mobile, city, state, isAdmin)  VALUES  ('Tony', 'Tran', 'admin@a', 'a', 'Charles St', '0123456789', 'Sydney', 'NSW', 1);
 
 SELECT userID, firstName, lastName, email, isAdmin FROM users WHERE email='admin@a' AND password='a';
+
