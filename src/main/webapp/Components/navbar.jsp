@@ -32,6 +32,7 @@
         <li><a href="<%=cp%>/home.jsp">Home</a></li>
         <li><a href="<%=cp%>/products.jsp">Products</a></li>
         <li><a href="<%=cp%>/accountSettings.jsp">Account</a></li>
+
         <% if (!isAdmin) { %>
         <li><a href="<%=cp%>/cart.jsp">Cart</a></li>
         <% } %>

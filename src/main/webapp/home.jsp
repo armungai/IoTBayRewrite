@@ -39,7 +39,6 @@
   <% if (user != null) { %>
   <h1>Welcome, <%=user.getFName()%></h1>
   <h2>We're glad to see you back</h2>
-
   <% } else { %>
   <h1>Welcome to IoT Bay!</h1>
   <h2><a href="index.jsp">Log in</a> or keep browsing as guest.</h2>
@@ -49,7 +48,6 @@
 
 <h1>Featured Products</h1>
 <jsp:include page="Components/productGrid.jsp" flush="true"/>
-
 <%@include file="Components/footer.jsp"%>
 
 </body>

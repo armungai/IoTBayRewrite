@@ -19,15 +19,35 @@ CREATE TABLE users (
                        isAdmin BOOLEAN
 );
 
-INSERT INTO users (firstName, lastName, email, password, address, mobile, city, state) VALUES
-                                                                                           ('Andrew', 'Mungai', 'a@a', 'a', '123 Smart St', 1234567890, 'Sydney', 'NSW'),
-                                                                                           ('And3ew', 'Mungai', 'b@b', 'a', '456 Tech Ave', 2345678901, 'Melbourne', 'VIC'),
-                                                                                           ('Jane', 'Doe', 'jane@example.com', 'pass123', '789 Light Rd', 3456789012, 'Brisbane', 'QLD'),
-                                                                                           ('John', 'Smith', 'john@example.com', 'abc456', '321 Cloud Ln', 4567890123, 'Perth', 'WA'),
-                                                                                           ('Emily', 'Brown', 'emily@example.com', 'xyz789', '654 AI Blvd', 5678901234, 'Adelaide', 'SA');
+-- INSERT INTO users (firstName, lastName, email, password, address, mobile, city, state) VALUES
+--                                                                                            ('Andrew', 'Mungai', 'a@a', 'a', '123 Smart St', 1234567890, 'Sydney', 'NSW'),
+--                                                                                            ('And3ew', 'Mungai', 'b@b', 'a', '456 Tech Ave', 2345678901, 'Melbourne', 'VIC'),
+--                                                                                            ('Jane', 'Doe', 'jane@example.com', 'pass123', '789 Light Rd', 3456789012, 'Brisbane', 'QLD'),
+--                                                                                            ('John', 'Smith', 'john@example.com', 'abc456', '321 Cloud Ln', 4567890123, 'Perth', 'WA'),
+--                                                                                            ('Emily', 'Brown', 'emily@example.com', 'xyz789', '654 AI Blvd', 5678901234, 'Adelaide', 'SA');
+
+
+INSERT INTO users
+(firstName, lastName, email, password, address, mobile, city, state, isAdmin)
+VALUES
+    ('Andrew', 'Mungai', 'a@a', 'a', '123 Smart St', 1234567890, 'Sydney', 'NSW', 0),
+    ('And3ew', 'Mungai', 'b@b', 'a', '456 Tech Ave', 2345678901, 'Melbourne','VIC', 0),
+    ('Jane','Doe','jane@example.com','pass123', '789 Light Rd', 3456789012, 'Brisbane', 'QLD', 0),
+    ('John','Smith','john@example.com','abc456',  '321 Cloud Ln', 4567890123, 'Perth',    'WA',  0),
+    ('Emily','Brown', 'emily@example.com', 'xyz789', '654 AI Blvd', 5678901234, 'Adelaide', 'SA',  0);
+
+
+-- INSERT INTO users (firstName, email, password, isAdmin) VALUES
+--     ('Tony', 'admin@a', 'a', true);
+
+INSERT INTO users
+(firstName, lastName, email, password, address, mobile, city, state, isAdmin)
+VALUES
+    ('Tony','Tran','admin@a','a','Wayne Manor', 0, 'Gotham', 'NJ', 1);
 
 
 INSERT INTO users (firstName, email,password,isAdmin) VALUES('ANDREW-ADMIN','admin@a','a',true);
+
 
 
 CREATE TABLE IF NOT EXISTS PaymentMethods (
@@ -187,6 +207,9 @@ CREATE TABLE websiteAccessLog(
                                  logID INTEGER PRIMARY KEY AUTOINCREMENT,
                                  userID INTEGER,
                                  loginTime VARCHAR(255),
+
+                                 logoutTime VARCHAR(255)
+
                                  logoutTime VARCHAR(255),
                                  FOREIGN KEY(userID) REFERENCES users(userID)
 
@@ -199,9 +222,17 @@ CREATE TABLE IF NOT EXISTS Shipments (
                                          shippingMethod TEXT,
                                          shippingDate TEXT
 
+
 );
 
 INSERT INTO websiteAccessLog(userID, loginTime, logoutTime) VALUES (1,'2025-05-08 02:02:14','2025-05-08 02:02:20');
+
+
+SELECT * FROM products;
+SELECT * FROM users;
+SELECT * FROM websiteAccessLog;
+-- SELECT * FROM users WHERE email = 'admin@a';
+SELECT userID, firstName, lastName, email, isAdmin FROM users;
 
 
 INSERT INTO users(firstName, lastName, email, password, address, mobile, city, state, isAdmin)  VALUES  ('Tony', 'Tran', 'admin@a', 'a', 'Charles St', '0123456789', 'Sydney', 'NSW', 1)

@@ -32,10 +32,7 @@
 
 <h1 style="text-align:center;">All Products</h1>
 
-
 <%@ include file="Components/productGrid.jsp" %>
 <%@ include file="Components/footer.jsp" %>
-
-
 </body>
 </html>

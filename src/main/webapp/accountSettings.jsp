@@ -12,6 +12,15 @@
 <%@ include file="Components/navbar.jsp" %>
 
 <%
+
+    User loggedinuser = (User)session.getAttribute("loggedInUser");
+    if (loggedinuser != null && loggedinuser.getAdmin())
+
+
+
+
+
+
     // 1) enforce login
     User user = (User) session.getAttribute("loggedInUser");
     if (user == null) {
@@ -20,6 +29,7 @@
     }
     boolean adminFlag = user.getAdmin();
 %>
+
 
 <div class="account-settings-container">
     <div class="account-settings">

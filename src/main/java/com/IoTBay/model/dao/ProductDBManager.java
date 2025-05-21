@@ -30,6 +30,19 @@ public class ProductDBManager extends DBManager<Product> {
         return product;
     }
 
+    // Public wrapper for adding a product
+    public Product addProduct(Product product) throws SQLException {
+        return add(product);  // Calls the protected add() in DBManager
+    }
+
+    // Public wrapper for deleting a product
+    public void deleteProduct(Product product) throws SQLException {
+        delete(product);      // Calls the protected delete() in DBManager
+    }
+
+    // Public wrapper for updating a product
+    public void updateProduct(Product oldProduct, Product newProduct) throws SQLException {
+        update(oldProduct, newProduct);  // Calls the protected update() in DBManager
     public Product addProduct(Product product) throws SQLException {
         return add(product);
     }

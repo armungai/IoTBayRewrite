@@ -38,7 +38,6 @@
 
   <h1>All Products</h1>
   <jsp:include page="/Components/productGrid.jsp" flush="true" />
-
 </body>
 </html>
 

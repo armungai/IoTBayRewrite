@@ -674,8 +674,6 @@ a.link-button:hover {
     color: #ff9800;
 }
 
-
-
 /* EDIT DEVICE FORM CARD */
 .edit-form-container {
     max-width: 600px;
@@ -903,6 +901,7 @@ a.btn-add:hover {
 .unauthorized-card .btn:hover {
     transform: scale(1.03);
 }
+
 
 /**/
 
@@ -1207,4 +1206,3 @@ a.btn-add:hover {
     margin-top: 10px;
     text-align: center;
 }
-

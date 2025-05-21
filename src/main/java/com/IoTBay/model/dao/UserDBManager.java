@@ -53,6 +53,34 @@ public class UserDBManager extends DBManager<User> {
         return new User(resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3), resultSet.getString(4), resultSet.getString(5), resultSet.getString(6), resultSet.getString(7), resultSet.getString(8), resultSet.getString(9));
     }
 
+    @Override
+    public void update(User oldUser, User newUser) throws SQLException {
+        String sql =
+                "UPDATE USERS " +
+                        "  SET Email     = ?, " +
+                        "      Password  = ?, " +
+                        "      FirstName = ?, " +
+                        "      LastName  = ?, " +
+                        "      mobile    = ?, " +
+                        "      address   = ?, " +
+                        "      City      = ?, " +
+                        "      State     = ? " +
+                        "WHERE UserId    = ?";
+
+        PreparedStatement ps = connection.prepareStatement(sql);
+        ps.setString(1, newUser.getEmail());
+        ps.setString(2, newUser.getPassword());
+        ps.setString(3, newUser.getFName());
+        ps.setString(4, newUser.getLName());
+        ps.setString(5, newUser.getPhone());
+        ps.setString(6, newUser.getAddress());
+        ps.setString(7, newUser.getCity());
+        ps.setString(8, newUser.getState());
+        ps.setInt   (9, oldUser.getId());
+
+        ps.executeUpdate();
+        ps.close();
+    }
 @Override
 public void update(User oldUser, User newUser) throws SQLException {
     String sql =
@@ -81,8 +109,6 @@ public void update(User oldUser, User newUser) throws SQLException {
     ps.executeUpdate();
     ps.close();
 }
-
-
 
     public void delete(User user) throws SQLException {
         PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM USERS WHERE UserId = ?");
@@ -191,6 +217,4 @@ public void update(User oldUser, User newUser) throws SQLException {
 
         return entries;
     }
-
-
 }
