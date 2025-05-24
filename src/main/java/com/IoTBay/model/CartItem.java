@@ -1,9 +1,43 @@
+//package com.IoTBay.model;
+//
+//import java.io.Serializable;
+//
+//public class CartItem implements Serializable {
+//    private Product product;
+//    private int quantity;
+//
+//    public CartItem(Product product, int quantity) {
+//        this.product = product;
+//        this.quantity = quantity;
+//    }
+//
+//    public Product getProduct() {
+//        return product;
+//    }
+//
+//    public void setProduct(Product product) {
+//        this.product = product;
+//    }
+//
+//    public int getQuantity() {
+//        return quantity;
+//    }
+//
+//    public void setQuantity(int quantity) {
+//        this.quantity = quantity;
+//    }
+//
+//    public float getTotalPrice() {
+//        return product.getPrice() * quantity;
+//    }
+//}
+
 package com.IoTBay.model;
 
 import java.io.Serializable;
 
 public class CartItem implements Serializable {
-    private Product product;
+    private final Product product;
     private int quantity;
 
     public CartItem(Product product, int quantity) {
@@ -11,23 +45,12 @@ public class CartItem implements Serializable {
         this.quantity = quantity;
     }
 
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
-    public float getTotalPrice() {
-        return product.getPrice() * quantity;
+    public Product getProduct()            { return product; }
+    public int getQuantity()               { return quantity; }
+    public void setQuantity(int q)         { this.quantity = q; }
+    public float getTotalPrice()           {
+        return (product != null ? product.getPrice() * quantity : 0);
     }
 }
+
+
