@@ -10,7 +10,7 @@
 <body>
 
 <main class="register-container">
-    <section class="register-section">
+    <section class="register-section" style="margin-top: 500px">
         <h1>Create Your Account</h1>
 
         <form action="${pageContext.request.contextPath}/RegisterServlet" method="post" class="login-form">

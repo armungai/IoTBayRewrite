@@ -77,7 +77,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Your Payments</title>
-    <link rel="stylesheet" href="assets/styles.css">
+    <link rel="stylesheet" href="../assets/styles.css">
 </head>
 <body>
 
@@ -86,13 +86,13 @@
 <div style="width: 80%; margin: 0 auto; text-align: center" class="view-all-data">
     <% if (paymentsGeneric.isEmpty()) { %>
     <% if (searchIdStr != null && !searchIdStr.trim().isEmpty()) { %>
-    <p>No payment found with ID <strong><%= searchIdStr %></strong>. <span><a href="AccountPages/paymentHistory.jsp">Back</a> </span></p>
+    <p>No payment found with ID <strong><%= searchIdStr %></strong>. <span><a href="paymentHistory.jsp">Back</a> </span></p>
     <% } else { %>
     <p>You haven’t made any payments yet.</p>
-    <a class="return-ref" href = "AccountPages/paymentHistory.jsp">Back</a>
+    <a class="return-ref" href = "/accountSettings.jsp">Back</a>
     <% } %>
     <% } else { %>
-    <form method="get" action="AccountPages/paymentHistory.jsp" style="text-align:center; margin-bottom: 20px;">
+    <form method="get" action="paymentHistory.jsp" style="text-align:center; margin-bottom: 20px;">
         <label for="search">Search by Payment ID:</label>
         <input type="text" id="search" class="search-payment" name="paymentId" placeholder="Enter payment ID" value="<%= (searchIdStr != null) ? searchIdStr : "" %>">
         <input type="hidden" name="sort" value="<%= (sort != null) ? sort : "" %>">
@@ -104,11 +104,11 @@
                value="<%= request.getParameter("userId") != null ? request.getParameter("userId") : "" %>">
         <% } %>
         <br>
-        <button type="submit" style="margin-top: 10px">Search</button><span><a class="search-payment" href="AccountPages/paymentHistory.jsp">Reset</a> </span>
+        <button type="submit" style="margin-top: 10px">Search</button><span><a class="search-payment" href="paymentHistory.jsp">Reset</a> </span>
     </form>
 
     <div style="text-align:center; margin-bottom: 20px;">
-        <form method="get" action="AccountPages/paymentHistory.jsp" style="display: inline-block;">
+        <form method="get" action="paymentHistory.jsp" style="display: inline-block;">
             <input type="hidden" name="paymentId" value="<%= (searchIdStr != null) ? searchIdStr : "" %>">
             <label for="sort" style="font-weight: bold; margin-right: 10px;">Sort by:</label>
             <select name="sort" id="sort" onchange="this.form.submit()"
@@ -135,20 +135,16 @@
 
         </tr>
         <% for (Payment payment : paymentsGeneric) { %>
-        <%
-            PaymentMethod pm = dao.PaymentMethods().get(payment.getMethodId());
-        %>
+        <%PaymentMethod pm = dao.PaymentMethods().get(payment.getMethodId());%>
         <tr>
             <%if (user.getAdmin()){ %>
             <td><%=payment.getUserId()%></td>
             <% }%>
             <td><%= payment.getPaymentId() %></td>
             <td>
-                <% if (pm != null && pm.getCardNumber() != null && pm.getCardNumber().length() >= 4) { %>
-                **** **** **** <%= pm.getCardNumber().substring(pm.getCardNumber().length() - 4) %>
-                <% } else { %>
-                N/A
-                <% } %>
+                <%=pm.getCardNumber() != null && pm.getCardNumber().length() >= 4
+                        ? "**** **** **** " + pm.getCardNumber().substring(pm.getCardNumber().length() - 4)
+                        : "N/A" %>
             </td>
             <td>$<%= String.format("%.2f", payment.getAmount()) %></td>
             <td><%= payment.getDate() %></td>
@@ -162,5 +158,6 @@
     </table>
     <% } %>
 </div>
+<%@ include file="/Components/footer.jsp" %>
 </body>
 </html>
