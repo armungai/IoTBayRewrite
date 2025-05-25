@@ -1,47 +1,86 @@
 package com.IoTBay.controller;
 
-import com.IoTBay.model.OrderItem;
+import com.IoTBay.model.*;
 import com.IoTBay.model.dao.DAO;
-import jakarta.servlet.*;
+import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
-
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.List;
+import java.time.LocalDateTime;
 
 @WebServlet("/SubmitOrderServlet")
 public class SubmitOrderServlet extends HttpServlet {
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
-        HttpSession session = request.getSession();
-        DAO dao = (DAO) session.getAttribute("db");
+        HttpSession session = req.getSession();
+        DAO dao       = (DAO) session.getAttribute("db");
+        User user     = (User) session.getAttribute("loggedInUser");
+        Cart cart     = (Cart) session.getAttribute("cart");
 
-        // Get the orderId to submit
-        int orderId = Integer.parseInt(request.getParameter("orderId"));
+        int methodId       = Integer.parseInt(req.getParameter("methodId"));
+        String address     = req.getParameter("address");
+        String shipMethod  = req.getParameter("shippingMethod");
+        String shipDate    = req.getParameter("shippingDate");  // "YYYY-MM-DD"
+
+        LocalDateTime now  = LocalDateTime.now();
+        float total        = cart.getTotalPrice();
 
         try {
-            // 1. Get all items from the order
-            List<OrderItem> items = dao.Orders().getOrderItemsByOrderId(orderId);
+            // 1) payment
+            Payment pay = new Payment(
+                    0,
+                    user.getId(),
+                    methodId,
+                    total,
+                    now.toString(),
+                    "Pending"
+            );
+            pay = dao.Payments().add(pay);
 
-            // 2. Deduct stock
-            for (OrderItem item : items) {
-                dao.Products().decreaseStock(item.getProductId(), item.getQuantity());
+            // 2) order (saved)
+            Order ord = new Order(
+                    user.getId(),
+                    pay.getPaymentId(),
+                    now
+            );
+            ord.setStatus("saved");
+            ord = dao.Orders().add(ord);
+
+            // 3) shipment
+            Shipment sh = new Shipment(
+                    0,
+                    ord.getOrderId(),
+                    shipMethod,
+                    shipDate,
+                    address
+            );
+            dao.Shipments().add(sh);
+
+            // 4) line-items + stock
+            for (CartItem ci : cart.getItems()) {
+                OrderItem line = new OrderItem(
+                        ord.getOrderId(),
+                        ci.getProduct().getProductID(),
+                        ci.getProduct().getProductName(),
+                        ci.getProduct().getPrice(),
+                        ci.getQuantity()
+                );
+                dao.OrderItems().add(line);
+
+                Product p = ci.getProduct();
+                p.setStock(p.getStock() - ci.getQuantity());
+                dao.Products().update(p, p);
             }
 
-            // 3. Update status
-            dao.Orders().updateOrderStatus(orderId, "submitted");
-
-            // 4. Redirect to confirmation
-            response.sendRedirect("orderConfirmation.jsp");
+            // 5) clear + confirm
+            cart.clear();
+            resp.sendRedirect("orderConfirmation.jsp?orderId=" + ord.getOrderId());
 
         } catch (SQLException e) {
-            e.printStackTrace();
-            request.setAttribute("error", "Unable to submit order.");
-            request.getRequestDispatcher("cart.jsp").forward(request, response);
+            throw new ServletException("Error submitting order", e);
         }
     }
 }
-

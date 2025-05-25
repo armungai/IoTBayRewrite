@@ -11,7 +11,6 @@ public class User implements Serializable {
     private String password;
     private String address;
     private String phone;
-    private int mobile;
     private String city;
     private String state;
     private boolean isAdmin;

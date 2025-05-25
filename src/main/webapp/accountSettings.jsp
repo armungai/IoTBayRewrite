@@ -12,21 +12,13 @@
 <%@ include file="Components/navbar.jsp" %>
 
 <%
-
-    User loggedinuser = (User)session.getAttribute("loggedInUser");
-    if (loggedinuser != null && loggedinuser.getAdmin())
-
-
-
-
-
-
-    // 1) enforce login
+    // Enforce login
     User user = (User) session.getAttribute("loggedInUser");
     if (user == null) {
         response.sendRedirect("home.jsp");
         return;
     }
+
     boolean adminFlag = user.getAdmin();
 %>
 

@@ -35,7 +35,17 @@ public class AddDeviceServlet extends HttpServlet {
             return;
         }
 
-        Product product = new Product(name, (float) price, description, image);
+        int stock;
+
+        try {
+            price = Double.parseDouble(request.getParameter("price"));
+            stock = Integer.parseInt(request.getParameter("stock"));
+        } catch (NumberFormatException e) {
+            response.sendRedirect("addDevice.jsp?error=1");
+            return;
+        }
+
+        Product product = new Product(name, (float) price, description, image, stock);
 
         try {
             dao.Products().addProduct(product);

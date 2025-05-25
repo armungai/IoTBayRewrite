@@ -16,14 +16,6 @@ import java.sql.SQLException;
 
 @WebServlet("/EditDeviceServlet")
 public class EditDeviceServlet extends HttpServlet {
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        HttpSession session = request.getSession();
-        DAO dao = (DAO) session.getAttribute("db");
-        User user = (User) session.getAttribute("loggedInUser");
-
-        if (user == null || !user.getAdmin()) {
-
     // 1) Show the "edit" form
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -59,8 +51,8 @@ public class EditDeviceServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
-        DAO dao       = (DAO) session.getAttribute("db");
-        User user     = (User) session.getAttribute("loggedInUser");
+        DAO dao = (DAO) session.getAttribute("db");
+        User user = (User) session.getAttribute("loggedInUser");
 
         if (dao == null || user == null || !user.getAdmin()) {
             response.sendRedirect("unauthorized.jsp");
@@ -73,31 +65,19 @@ public class EditDeviceServlet extends HttpServlet {
             String description = request.getParameter("description");
             String image = request.getParameter("image");
             float price = Float.parseFloat(request.getParameter("price"));
+            int stock = Integer.parseInt(request.getParameter("stock"));
 
-            Product oldProduct = dao.Products().getById(id); // fetch original
-            Product updatedProduct = new Product(id, name, price, description, image);
+            Product oldProduct = dao.Products().getById(id); // may throw SQLException
+            Product updatedProduct = new Product(id, name, price, description, image, stock);
 
-            dao.Products().updateProduct(oldProduct, updatedProduct);
-
-            response.sendRedirect("manageDevices.jsp?edited=1");
-        } catch (Exception e) {
-            int    id          = Integer.parseInt(request.getParameter("id"));
-            String name        = request.getParameter("name");
-            String description = request.getParameter("description");
-            String image       = request.getParameter("image");
-            float  price       = Float.parseFloat(request.getParameter("price"));
-
-            // load original, create updated bean
-            Product oldProduct     = dao.Products().getById(id);
-            Product updatedProduct = new Product(id, name, price, description, image);
-
-            // apply update
-            dao.Products().update(oldProduct, updatedProduct);
+            dao.Products().updateProduct(oldProduct, updatedProduct); // may throw SQLException
 
             response.sendRedirect("manageDevices.jsp?edited=1");
+
         } catch (NumberFormatException | SQLException e) {
             e.printStackTrace();
             response.sendRedirect("manageDevices.jsp?error=EditFailed");
         }
     }
+
 }

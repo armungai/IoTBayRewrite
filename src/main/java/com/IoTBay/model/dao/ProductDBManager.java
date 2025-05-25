@@ -43,16 +43,6 @@ public class ProductDBManager extends DBManager<Product> {
     // Public wrapper for updating a product
     public void updateProduct(Product oldProduct, Product newProduct) throws SQLException {
         update(oldProduct, newProduct);  // Calls the protected update() in DBManager
-    public Product addProduct(Product product) throws SQLException {
-        return add(product);
-    }
-
-    public void deleteProduct(Product product) throws SQLException {
-        delete(product);
-    }
-
-    public void updateProduct(Product oldProduct, Product newProduct) throws SQLException {
-        update(oldProduct, newProduct);
     }
 
     @Override
@@ -68,7 +58,8 @@ public class ProductDBManager extends DBManager<Product> {
                     rs.getString("productName"),
                     rs.getFloat("price"),
                     rs.getString("productDescription"),
-                    rs.getString("productImageAddress")
+                    rs.getString("productImageAddress"),
+                    rs.getInt("stock")
             );
         }
         return null;
@@ -106,7 +97,8 @@ public class ProductDBManager extends DBManager<Product> {
                     rs.getString("productName"),
                     rs.getFloat("price"),
                     rs.getString("productDescription"),
-                    rs.getString("productImageAddress")
+                    rs.getString("productImageAddress"),
+                    rs.getInt("stock")
             ));
         }
 
@@ -125,10 +117,19 @@ public class ProductDBManager extends DBManager<Product> {
                     rs.getString("productName"),
                     rs.getFloat("price"),
                     rs.getString("productDescription"),
-                    rs.getString("productImageAddress")
+                    rs.getString("productImageAddress"),
+                    rs.getInt("stock")
             );
         }
 
         return null;
+    }
+
+    public void increaseStock(int productId, int amount) throws SQLException {
+        String sql = "UPDATE products SET stock = stock + ? WHERE productID = ?";
+        PreparedStatement ps = connection.prepareStatement(sql);
+        ps.setInt(1, amount);
+        ps.setInt(2, productId);
+        ps.executeUpdate();
     }
 }

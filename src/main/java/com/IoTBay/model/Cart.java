@@ -42,6 +42,12 @@ public class Cart implements Serializable {
         return total;
     }
 
+
+    public CartItem getItem(int productId) {
+        return items.get(productId);
+    }
+
+
     public void clear() {
         items.clear();
     }

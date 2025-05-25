@@ -81,34 +81,7 @@ public class UserDBManager extends DBManager<User> {
         ps.executeUpdate();
         ps.close();
     }
-@Override
-public void update(User oldUser, User newUser) throws SQLException {
-    String sql =
-            "UPDATE USERS " +
-                    "  SET Email     = ?, " +
-                    "      Password  = ?, " +
-                    "      FirstName = ?, " +
-                    "      LastName  = ?, " +
-                    "      mobile    = ?, " +
-                    "      address   = ?, " +
-                    "      City      = ?, " +
-                    "      State     = ? " +
-                    "WHERE UserId    = ?";
 
-    PreparedStatement ps = connection.prepareStatement(sql);
-    ps.setString(1, newUser.getEmail());
-    ps.setString(2, newUser.getPassword());
-    ps.setString(3, newUser.getFName());
-    ps.setString(4, newUser.getLName());
-    ps.setString(5, newUser.getPhone());
-    ps.setString(6, newUser.getAddress());
-    ps.setString(7, newUser.getCity());
-    ps.setString(8, newUser.getState());
-    ps.setInt   (9, oldUser.getId());
-
-    ps.executeUpdate();
-    ps.close();
-}
 
     public void delete(User user) throws SQLException {
         PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM USERS WHERE UserId = ?");
