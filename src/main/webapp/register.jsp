@@ -11,7 +11,7 @@
 <%@ include file="Components/navbar.jsp" %>
 
 <main class="register-container">
-    <section class="register-section" style="margin-top: 500px">
+    <section class="register-section" >
         <h1>Create Your Account</h1>
 
         <form action="${pageContext.request.contextPath}/RegisterServlet" method="post" class="login-form">

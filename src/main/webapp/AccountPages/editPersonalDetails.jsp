@@ -24,7 +24,6 @@
 
 <main class="register-container">
     <section class="register-section">
-        <a class="return-ref" href="/accountSettings.jsp">Back</a>
         <h1>Edit Your Personal Details</h1>
 
         <form action="<%= request.getContextPath() %>/EditUserServlet" method="post" class="login-form">
@@ -64,6 +63,7 @@
             </div>
 
             <div class="form-group">
+                <a class="return-ref" href="accountSettings.jsp" style="width: 80px">Cancel</a>
                 <button type="submit" class="register-button" style="width: 120px">Update Details</button>
             </div>
         </form>

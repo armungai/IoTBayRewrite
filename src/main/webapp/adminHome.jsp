@@ -6,6 +6,8 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page import="com.IoTBay.model.User, com.IoTBay.model.dao.DAO, com.IoTBay.model.Product, java.util.List" %>
+
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page session="true" %>
 <%
   User user = (User) session.getAttribute("loggedInUser");
@@ -30,7 +32,7 @@
 </head>
 <body>
  <jsp:include page="/Components/navbar.jsp" flush="true" />
-
+<div style="margin-left: 50px">
   <div class="welcome-heading">
     <h1>Welcome, Admin <%= user.getFName() %>!</h1>
     <h2>Manage IoT Devices Below</h2>
@@ -38,6 +40,7 @@
 
   <h1>All Products</h1>
   <jsp:include page="/Components/productGrid.jsp" flush="true" />
+</div>
 </body>
 </html>
 

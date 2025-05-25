@@ -45,9 +45,10 @@
   <% } %>
 </div>
 
-
+<div style="margin-left: 50px">
 <h1>Featured Products</h1>
 <jsp:include page="Components/productGrid.jsp" flush="true"/>
+</div>
 <%@include file="Components/footer.jsp"%>
 
 </body>
