@@ -4,12 +4,9 @@ import com.IoTBay.model.Product;
 import com.IoTBay.model.User;
 import com.IoTBay.model.dao.DAO;
 
-import jakarta.servlet.*;
 import jakarta.servlet.http.*;
-import jakarta.servlet.annotation.*;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.*;
 
 import java.io.IOException;
 import java.sql.SQLException;

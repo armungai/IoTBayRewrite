@@ -14,7 +14,6 @@ import java.util.List;
 import java.util.Map;
 
 public class UserDBManager extends DBManager<User> {
-    // dont need a get user count
 
     public UserDBManager(Connection conn) throws SQLException {
         super(conn);

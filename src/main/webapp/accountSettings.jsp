@@ -1,5 +1,4 @@
 <%@ page import="com.IoTBay.model.User" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,7 +11,6 @@
 <%@ include file="Components/navbar.jsp" %>
 
 <%
-    // Enforce login
     User user = (User) session.getAttribute("loggedInUser");
     if (user == null) {
         response.sendRedirect("home.jsp");
@@ -37,7 +35,6 @@
         </a>
         <% } %>
 
-        <!-- ALL LOGGED-IN USERS get these -->
         <a href="AccountPages/editPersonalDetails.jsp" class="account-settings-card">
             <h3><span class="icon">🪪</span> Edit Personal Details</h3>
         </a>

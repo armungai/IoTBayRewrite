@@ -4,7 +4,6 @@ import com.IoTBay.model.Product;
 import com.IoTBay.model.User;
 import com.IoTBay.model.dao.DAO;
 
-import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 import java.io.IOException;
