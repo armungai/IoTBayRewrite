@@ -109,7 +109,7 @@ CREATE TABLE products (
                           price FLOAT(6,2),
                           productDescription VARCHAR(255),
                           productImageAddress VARCHAR(225),
-                          stock INTEGER NOT NULL DEFAULT 0
+                          stock INTEGER NOT NULL DEFAULT 10
 );
 
 -- Insert sample products

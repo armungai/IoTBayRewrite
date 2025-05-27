@@ -132,4 +132,13 @@ public class ProductDBManager extends DBManager<Product> {
         ps.setInt(2, productId);
         ps.executeUpdate();
     }
+
+    public void decreaseStock(int productId, int amount) throws SQLException {
+        String sql = "UPDATE products SET stock = stock - ? WHERE productID = ?";
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setInt(1, amount);
+            ps.setInt(2, productId);
+            ps.executeUpdate();
+        }
+    }
 }

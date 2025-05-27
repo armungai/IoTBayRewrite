@@ -12,15 +12,14 @@
 <%@ include file="Components/navbar.jsp" %>
 
 <%
+    // 1) enforce login
     User user = (User) session.getAttribute("loggedInUser");
     if (user == null) {
         response.sendRedirect("home.jsp");
         return;
     }
-
     boolean adminFlag = user.getAdmin();
 %>
-
 
 <div class="account-settings-container">
     <div class="account-settings">
@@ -34,8 +33,11 @@
         <a href="AccountPages/AdminViewAllAccess.jsp" class="account-settings-card">
             <h3><span class="icon">🗂️</span> View All Website Access History</h3>
         </a>
-        <% } %>
-
+        <a href="AccountPages/paymentHistory.jsp" class="account-settings-card">
+            <h3><span class="icon">💵</span> View All Payment History</h3>
+        </a>
+        <% } else { %>
+        <!-- CUSTOMER-ONLY LINKS -->
         <a href="AccountPages/editPersonalDetails.jsp" class="account-settings-card">
             <h3><span class="icon">🪪</span> Edit Personal Details</h3>
         </a>
@@ -52,13 +54,10 @@
             <h3><span class="icon">📦</span> View My Order History</h3>
         </a>
 
-        <a href="AccountPages/paymentHistory.jsp" class="account-settings-card">
-            <h3><span class="icon">💵</span> View Payment History</h3>
-        </a>
-
         <a href="AccountPages/userLog.jsp" class="account-settings-card">
             <h3><span class="icon">🔍</span> Website Access History</h3>
         </a>
+        <% } %>
 
     </div>
 </div>

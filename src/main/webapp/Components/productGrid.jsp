@@ -1,20 +1,16 @@
-<%@ page import="com.IoTBay.model.Product" %>
-<%@ page import="java.util.List" %>
-<%@ page session="true" %>
-<%@ page import="com.IoTBay.model.User" %>
-
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
-<%
-  List<Product> products = (List<Product>) request.getAttribute("products");
-  Boolean isAdmin = (Boolean) request.getAttribute("isAdmin");
-  if (products == null || products.isEmpty()) {
-%>
-<p>No products available.</p>
-<%
-    return;
-  }
+<%@ page import="java.util.List, java.util.Collections" %>
+<%@ page import="com.IoTBay.model.Product, com.IoTBay.model.User, com.IoTBay.model.dao.DAO" %>
+<%@ page session="true" %>
 
+<%
+  DAO dao2 = (DAO) session.getAttribute("db");
   User me = (User) session.getAttribute("loggedInUser");
+
+  List<Product> products = Collections.emptyList();
+  if (dao2 != null) {
+    products = dao2.Products().getAllProducts();
+  }
 %>
 
 <% if (me != null && me.getAdmin()) { %>
@@ -23,26 +19,44 @@
 </div>
 <% } %>
 
-<!-- Product grid -->
 <div class="product-grid">
   <% for (Product p : products) { %>
   <div class="product-card">
-    <a href="product.jsp?productId=<%= p.getProductID() %>" style="text-decoration:none; color:inherit;">
-      <img src="<%= p.getProductImageAddress() %>" alt="<%= p.getProductName() %>" />
-      <div class="product-card-content">
-        <h3><%= p.getProductName() %></h3>
-        <p class="product-price">$<%= String.format("%.2f", p.getPrice()) %></p>
-        <p><%= p.getProductDescription() %></p>
-      </div>
+    <% if (me == null || !me.getAdmin()) { %>
+    <a href="product.jsp?productId=<%=p.getProductID()%>" style="text-decoration:none; color:inherit;">
+      <img src="<%=p.getProductImageAddress()%>" alt="<%=p.getProductName()%>"/>
     </a>
-
-    <% if (Boolean.TRUE.equals(isAdmin)) { %>
-    <div class="admin-buttons">
-      <a href="addDevice.jsp" class="btn-add">Add</a>
-      <a href="EditDeviceLoaderServlet?id=<%= p.getProductID() %>" class="btn btn-warning">Edit</a>
-      <a href="DeleteDeviceServlet?id=<%= p.getProductID() %>" class="btn btn-danger" onclick="return confirm('Delete this device?');">Delete</a>
+    <div class="product-card-content">
+      <h3><%= p.getProductName() %></h3>
+      <p class="product-price">$<%= String.format("%.2f", p.getPrice()) %></p>
+      <p><%= p.getProductDescription() %></p>
+      <p class="stock-info">
+        In stock: <strong><%= p.getStock() %></strong>
+      </p>
     </div>
+    <% } else { %>
+    <img src="<%=p.getProductImageAddress()%>" alt="<%=p.getProductName()%>"/>
+    <h3><%= p.getProductName() %></h3>
+    <p class="product-price">$<%= String.format("%.2f", p.getPrice()) %></p>
+    <p><%= p.getProductDescription() %></p>
     <% } %>
+
+
+
+    <% if (me == null || !me.getAdmin()) { %>
+    <form action="AddToCartServlet" method="post">
+      <input type="hidden" name="productId" value="<%= p.getProductID() %>"/>
+      <input type="hidden" name="quantity"  value="1"/>
+      <button type="submit" class="btn">Add to Cart</button>
+    </form>
+    <% } %>
+
+    <div class="product-actions">
+      <% if (me != null && me.getAdmin()) { %>
+      <a href="EditDeviceServlet?productId=<%=p.getProductID()%>" class="btn btn-edit">Edit</a>
+      <a href="DeleteDeviceServlet?productId=<%=p.getProductID()%>" class="btn btn-delete">Delete</a>
+      <% } %>
+    </div>
   </div>
   <% } %>
 </div>

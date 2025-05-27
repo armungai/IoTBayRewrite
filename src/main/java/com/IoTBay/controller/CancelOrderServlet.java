@@ -1,8 +1,9 @@
 package com.IoTBay.controller;
 
+import com.IoTBay.model.Order;
 import com.IoTBay.model.OrderItem;
 import com.IoTBay.model.dao.DAO;
-import jakarta.servlet.*;
+import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 
@@ -13,42 +14,46 @@ import java.util.List;
 @WebServlet("/CancelOrderServlet")
 public class CancelOrderServlet extends HttpServlet {
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
-        HttpSession session = request.getSession();
+        HttpSession session = req.getSession();
         DAO dao = (DAO) session.getAttribute("db");
+        if (dao == null) {
+            resp.sendRedirect(req.getContextPath() + "/login.jsp");
+            return;
+        }
 
-        int orderId = Integer.parseInt(request.getParameter("orderId"));
-
+        int orderId = Integer.parseInt(req.getParameter("orderId"));
         try {
-            // 1. Get order status
-            String currentStatus = dao.Orders().get(orderId).getStatus();
+            // 1) Load the order
+            Order order = dao.Orders().get(orderId);
+            String status = order.getStatus();
+            if (status == null || status.isEmpty()) {
+                status = "Pending";
+            }
 
-            // Only cancel if it hasn't been submitted or cancelled yet
-            if (!"saved".equalsIgnoreCase(currentStatus)) {
-                response.sendRedirect("orderHistory.jsp?error=Cannot cancel this order.");
+            // 2) Only allow cancelling if still Pending
+            if (!"Pending".equalsIgnoreCase(status)) {
+                // not allowed → back with an error hint
+                resp.sendRedirect(req.getContextPath() + "/OrderHistoryServlet?error=notAllowed");
                 return;
             }
 
-            // 2. Get all items for this order
+            // 3) Restore stock for each item
             List<OrderItem> items = dao.Orders().getOrderItemsByOrderId(orderId);
-
-            // 3. Restore stock
             for (OrderItem item : items) {
                 dao.Products().increaseStock(item.getProductId(), item.getQuantity());
             }
 
-            // 4. Update order status
-            dao.Orders().updateOrderStatus(orderId, "cancelled");
+            // 4) Mark the order as Cancelled
+            dao.Orders().updateOrderStatus(orderId, "Cancelled");
 
-            // 5. Redirect
-            response.sendRedirect("AccountPages/viewAllOrders.jsp");
+            // 5) Redirect back to history
+            resp.sendRedirect(req.getContextPath() + "/OrderHistoryServlet");
 
         } catch (SQLException e) {
-            e.printStackTrace();
-            request.setAttribute("error", "Unable to cancel order.");
-            request.getRequestDispatcher("orderHistory.jsp").forward(request, response);
+            throw new ServletException("Failed to cancel order #" + orderId, e);
         }
     }
 }

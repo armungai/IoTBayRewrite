@@ -18,7 +18,7 @@ public class DBConnector {
             throw new RuntimeException(e);
         }
 
-        String url =  "jdbc:sqlite:/Users/andrewmungai/.SmartTomcat/IoTBayRewrite/IoTBay-Rewrite/NEWDB.db";
+        String url =  "jdbc:sqlite:C:/Users/Nguyen Tran/.SmartTomcat/IotBay-fix/IoTBay-Rewrite/NEWDB.db";
 
 
         try {

@@ -39,8 +39,11 @@ public class UpdateCartServlet extends HttpServlet {
 
             int currentQty = item.getQuantity();
 
-            if ("plus".equals(action) && currentQty < product.getStock()) {
-                cart.updateQuantity(productId, currentQty + 1);
+            if ("plus".equals(action)) {
+                // never exceed available stock
+                int max = product.getStock();
+                int newQty = Math.min(currentQty + 1, max);
+                cart.updateQuantity(productId, newQty);
             } else if ("minus".equals(action)) {
                 if (currentQty <= 1) {
                     cart.removeProduct(productId);

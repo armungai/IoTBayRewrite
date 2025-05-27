@@ -1252,3 +1252,77 @@ a.btn-add:hover {
     margin: 0 8px;
 }
 .login-card .links a:hover { text-decoration: underline; }
+
+.qty-btn {
+    background: none;
+    border: 1px solid #888;
+    border-radius: 3px;
+    padding: 2px 6px;
+    font-size: 1rem;
+    line-height: 1;
+    cursor: pointer;
+    margin: 0 4px;
+}
+
+.qty-value {
+    display: inline-block;
+    min-width: 1.5em;
+    text-align: center;
+}
+
+.stock-info {
+    font-size: 0.9rem;
+    color: #555;
+    margin-top: 4px;
+}
+
+.controls-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+.search-form, .sort-form {
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+}
+.reset-link {
+    color: #007bff;
+    text-decoration: none;
+    align-self: center;
+}
+.reset-link:hover {
+    text-decoration: underline;
+}
+
+.controls-container { margin-bottom: 1.5rem; }
+.search-sort-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem;
+    align-items: center;
+}
+.reset-link {
+    margin-left: auto;
+    color: #007bff;
+    text-decoration: none;
+}
+.reset-link:hover { text-decoration: underline; }
+
+
+.btn-cancel {
+    background: #ff9800;
+    border: none;
+    padding: 0.5em 1em;
+    color: #fff;
+    font-weight: bold;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn-cancel:disabled {
+    background: #888;
+    cursor: not-allowed;
+    opacity: 0.7;
+}

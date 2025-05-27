@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="NEWDB.db" uuid="114f52b1-f651-4c0c-b1f8-4603f7afe382">
+    <data-source source="LOCAL" name="NEWDB.db" uuid="4fd8f771-a949-4f64-be3e-b3f9924e9b10">
       <driver-ref>sqlite.xerial</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
-      <jdbc-url>jdbc:sqlite:$USER_HOME$/.SmartTomcat/IoTBayRewrite/IoTBay-Rewrite/NEWDB.db</jdbc-url>
+      <jdbc-url>jdbc:sqlite:$USER_HOME$/.SmartTomcat/IotBay-fix/IoTBay-Rewrite/NEWDB.db</jdbc-url>
       <jdbc-additional-properties>
         <property name="com.intellij.clouds.kubernetes.db.enabled" value="false" />
       </jdbc-additional-properties>

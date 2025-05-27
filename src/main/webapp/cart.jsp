@@ -74,7 +74,29 @@
     <tr>
         <td><%= item.getProduct().getProductName() %></td>
         <td>$<%= String.format("%.2f", item.getProduct().getPrice()) %></td>
-        <td><%= item.getQuantity() %></td>
+        <td>
+            <!-- minus -->
+            <form action="UpdateCartServlet" method="post" style="display:inline">
+                <input type="hidden" name="productId" value="<%= item.getProduct().getProductID() %>" />
+                <button type="submit" name="action" value="minus" class="qty-btn">−</button>
+            </form>
+
+            <!-- current qty -->
+            <span class="qty-value"><%= item.getQuantity() %></span>
+
+            <!-- plus -->
+            <form action="UpdateCartServlet" method="post" style="display:inline">
+                <input type="hidden" name="productId" value="<%= item.getProduct().getProductID() %>" />
+                <button type="submit"
+                        name="action" value="plus"
+                        class="qty-btn"
+                        <%= (item.getQuantity() >= item.getProduct().getStock() ? "disabled" : "") %>>
+                    +
+                </button>
+            </form>
+        </td>
+
+
         <td>$<%= String.format("%.2f", itemTotal) %></td>
     </tr>
     <% } %>

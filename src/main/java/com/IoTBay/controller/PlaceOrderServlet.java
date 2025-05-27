@@ -147,6 +147,10 @@ public class PlaceOrderServlet extends HttpServlet {
                         item.getQuantity()
                 );
                 dao.OrderItems().add(oi);
+                dao.Products().decreaseStock(
+                        item.getProduct().getProductID(),
+                        item.getQuantity()
+                );
             }
 
             // 4) shipments

@@ -17,14 +17,14 @@
   }
 
   int productId = Integer.parseInt(productIdParam);
-    Product product = null;
-    try {
-        product = dao.Products().getById(productId);
-    } catch (SQLException e) {
-        throw new RuntimeException(e);
-    }
+  Product product = null;
+  try {
+    product = dao.Products().getById(productId);
+  } catch (SQLException e) {
+    throw new RuntimeException(e);
+  }
 
-    if (product == null) {
+  if (product == null) {
     response.getWriter().write("Product not found.");
     return;
   }
@@ -48,13 +48,38 @@
     <h1><%= product.getProductName() %></h1>
     <p class="product-price"><strong>$<%= product.getPrice() %></strong></p>
     <p><%= product.getProductDescription() %></p>
+    <%
+      String cartError = (String) session.getAttribute("cartError");
+      if (cartError != null) {
+    %>
+    <div class="error-banner"><%= cartError %></div>
+    <%
+        session.removeAttribute("cartError");
+      }
+    %>
 
+    <% if (product.getStock() > 0) { %>
     <form action="<%= request.getContextPath() %>/AddToCartServlet" method="post">
       <input type="hidden" name="productId" value="<%= product.getProductID() %>">
-      <label for="quantity">Quantity:</label>
-      <input type="number" id="quantity" name="quantity" value="1" min="1" class="quantity-input" required>
+      <label for="quantity">Quantity (max <%= product.getStock() %>):</label>
+      <input type="number"
+             id="quantity"
+             name="quantity"
+             value="1"
+             min="1"
+             max="<%= product.getStock() %>"
+             class="quantity-input"
+             required>
       <br><br>
-      <button type="submit" class="register-button" style="width: 150px">Add to Cart 🛒</button>
+      <button type="submit" class="register-button" style="width: 150px">
+        Add to Cart 🛒
+      </button>
+    </form>
+    <% } else { %>
+    <p class="out-of-stock">Sorry, this item is currently out of stock.</p>
+    <% } %>
+    <form action="<%= request.getContextPath() %>/AddToCartServlet" method="post">
+      <input type="hidden" name="productId" value="<%= product.getProductID() %>">
     </form>
   </div>
 </div>
